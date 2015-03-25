@@ -12,7 +12,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"O3Co\\Query\\": "",
+			"O3Co\\Query\\": ""
 		}
 	},
 	"minimum-stability": "dev",

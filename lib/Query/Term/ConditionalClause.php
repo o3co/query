@@ -32,12 +32,23 @@ class ConditionalClause extends AbstractClause
 	}
 
     /**
+     * getFirstExpression 
+     * 
+     * @access public
+     * @return void
+     */
+    public function getFirstExpression()
+    {
+        return $this->getTerms()[0];
+    }
+
+    /**
      * getExpresions 
      * 
      * @access public
      * @return void
      */
-    public function getExpresions()
+    public function getExpressions()
     {
         return $this->getTerms();
     }
