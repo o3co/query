@@ -48,7 +48,7 @@ abstract class AbstractParser implements ParserInterface
 		$queries = array();
 		parse_str($query, $queries);
 
-        return $this->parseComponents($queries);
+        return $this->parseHttpQueryComponents($queries);
     }
 
     /**
@@ -58,15 +58,14 @@ abstract class AbstractParser implements ParserInterface
      * @access public
      * @return void
      */
-    public function parseComonents(array $queryComponents = array())
+    public function parseHttpQueryComponents(array $queryComponents = array())
     {
 		$statement = new Statement();
 
-		foreach($this->queryComponentKeys as $part => $key) {
-			if(isset($queries[$key])) {
-				$statement->setClause($part, $this->parseClause($queries[$key], $part));
-			}
-		}
+        foreach($queryComponents as $key => $part) {
+            $clause = $this->getClauseForHttpQueryKey($key);
+            $statement->setClause($clause, $this->parseClause($part, $clause));
+        }
 
 		return $statement;
 	}
@@ -82,53 +81,61 @@ abstract class AbstractParser implements ParserInterface
 	 */
 	abstract public function parseClause($query, $part);
 
-	/**
-	 * hasQueryKeyFor 
-	 * 
-	 * @param mixed $part 
-	 * @access public
-	 * @return void
-	 */
-	public function hasQueryKeyFor($part)
+    public function guessQueryKeyForClause($key)
+    {
+        if(false !== ($pos = array_search($key, $this->queryComponentKeys))) {
+            return $pos;
+        }
+
+        return false;
+    }
+    /**
+     * isSupportedHttpQueryKey 
+     * 
+     * @param mixed $key 
+     * @access public
+     * @return void
+     */
+	public function isSupportedHttpQueryKey($key)
 	{
-		return isset($this->queryComponentKeys[$part]);
+		return isset($this->queryComponentKeys[$key]);
 	}
 
-	/**
-	 * removeQueryKeyFor 
-	 * 
-	 * @param mixed $part 
-	 * @access public
-	 * @return void
-	 */
-	public function removeQueryKeyFor($part)
+    /**
+     * removeHttpQueryKey 
+     * 
+     * @param mixed $key 
+     * @access public
+     * @return void
+     */
+	public function removeHttpQueryKey($key)
 	{
-		unset($this->queryComponentKeys[$part]);
+		unset($this->queryComponentKeys[$key]);
 	}
 
-	/**
-	 * getQueryKeyFor 
-	 * 
-	 * @param mixed $part 
-	 * @access public
-	 * @return void
-	 */
-	public function getQueryKeyFor($part)
+    /**
+     * getClauseForHttpQueryKey 
+     * 
+     * @param mixed $key 
+     * @access public
+     * @return void
+     */
+	public function getClauseForHttpQueryKey($key)
 	{
-		return $this->queryComponentKeys[$part];
+		return $this->queryComponentKeys[$key];
 	}
 
-	/**
-	 * setQueryKeyFor 
-	 * 
-	 * @param mixed $part 
-	 * @param mixed $key 
-	 * @access public
-	 * @return void
-	 */
-	public function setQueryKeyFor($part, $key)
+    /**
+     * setClauseForHttpQueryKey 
+     * 
+     * @param mixed $key 
+     * @param mixed $clause 
+     * @access public
+     * @return void
+     */
+	public function setClauseForHttpQueryKey($key, $clause)
 	{
-		$this->queryComponentKeys[$part] = $key;
+		$this->queryComponentKeys[$key] = $clause;
 	}
 }
 

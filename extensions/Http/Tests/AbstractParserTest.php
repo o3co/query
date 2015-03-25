@@ -5,18 +5,18 @@ class AbstractParserTest extends \PHPUnit_Framework_TestCase
 {
 	public function testPartialQueryKeys()
 	{
-		$parser = new TestParser(array('condition' => 'q'));
+		$parser = new TestParser(array('q' => 'condition'));
 
-		$this->assertTrue($parser->hasQueryKeyFor('condition'));
+		$this->assertTrue($parser->isSupportedHttpQueryKey('q'));
 
-		$this->assertEquals('q', $parser->getQueryKeyFor('condition'));
+		$this->assertEquals('condition', $parser->getClauseForHttpQueryKey('q'));
 
-		$parser->removeQueryKeyFor('condition');
-		$this->assertFalse($parser->hasQueryKeyFor('condition'));
+		$parser->removeHttpQueryKey('q');
+		$this->assertFalse($parser->isSupportedHttpQueryKey('q'));
 
 
-		$parser->setQueryKeyFor('order', 'o');
-		$this->assertTrue($parser->hasQueryKeyFor('order'));
+		$parser->setClauseForHttpQueryKey('o', 'order');
+		$this->assertTrue($parser->isSupportedHttpQueryKey('o'));
 	}
 }
 
