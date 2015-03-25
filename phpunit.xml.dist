@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="true"
+         bootstrap="./tests/bootstrap.php"
+>
+    <testsuites>
+        <testsuite name="O3Co Query Test Suite">
+            <directory>./lib/Tests</directory>
+            <directory>./extensions/*/Tests</directory>
+            <directory>./bridges/*/Tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./lib</directory>
+            <directory>./extensions</directory>
+            <directory>./bridges</directory>
+            <exclude>
+                <directory>./lib/Resources</directory>
+                <directory>./lib/Tests</directory>
+                <directory>./extensions/*/Resources</directory>
+                <directory>./extensions/*/Tests</directory>
+                <directory>./bridges/*/Resources</directory>
+                <directory>./bridges/*/Tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
+
+

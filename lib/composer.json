@@ -1,0 +1,25 @@
+{
+	"name": "o3co/query-core",
+	"type": "library",
+	"description": "O3Co Query Component - Core",
+	"keywords": [
+		"php",
+		"query"
+	],
+	"licence": "MIT",
+	"requires" : {
+		"php" : ">=5.3.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"O3Co\\Query\\": "",
+		}
+	},
+	"minimum-stability": "dev",
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.2-dev"
+		}
+	}
+}
+

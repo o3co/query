@@ -1,0 +1,36 @@
+{
+	"name": "o3co/query",
+	"type": "library",
+	"description": "PHP Query library",
+	"keywords": [
+		"php",
+		"query"
+	],
+	"license": "MIT",
+	"require" : {
+		"php" : ">=5.3.2"
+	},
+	"require-dev" : {
+		"doctrine/orm" : "~2.2,>=2.2.3"
+	},
+	"replace": {
+		"o3co/query-core": "self.version",
+		"o3co/query-extension-http": "self.version",
+		"o3co/query-extension-cql": "self.version",
+		"o3co/query-bridge-doctrine-orm": "self.version"
+	},
+	"autoload": {
+		"psr-4": {
+			"O3Co\\Query\\": "lib",
+			"O3Co\\Query\\Bridge\\": "bridges",
+			"O3Co\\Query\\Extension\\": "extensions"
+		}
+	},
+	"minimum-stability": "dev",
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.2-dev"
+		}
+	}
+}
+

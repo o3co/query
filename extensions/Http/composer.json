@@ -1,0 +1,29 @@
+{
+	"name": "o3co/query-extension-http",
+	"type": "library",
+	"description": "Extension Http for O3Co Query Component",
+	"keywords": [
+		"php",
+		"query"
+	],
+	"license": "MIT",
+	"require" : {
+		"php" : ">=5.3.2",
+		"o3co/query-core": "~0.1@dev"
+	},
+    "suggest": {
+        "o3co/query-bridge-guzzlehttp": "Wrapped GuzzleHttp Client for HttpClient"
+    },
+	"autoload": {
+		"psr-4": {
+			"O3Co\\Query\\Extension\\Http\\": ""
+		}
+	},
+	"minimum-stability": "dev",
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.1-dev"
+		}
+	}
+}
+
