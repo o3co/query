@@ -17,13 +17,15 @@
 		"o3co/query-core": "self.version",
 		"o3co/query-extension-http": "self.version",
 		"o3co/query-extension-cql": "self.version",
-		"o3co/query-bridge-doctrine-orm": "self.version"
+		"o3co/query-bridge-doctrine-orm": "self.version",
+		"o3co/query-adapter-doctrine": "self.version"
 	},
 	"autoload": {
 		"psr-4": {
 			"O3Co\\Query\\": "lib",
+			"O3Co\\Query\\Extension\\": "extensions",
 			"O3Co\\Query\\Bridge\\": "bridges",
-			"O3Co\\Query\\Extension\\": "extensions"
+			"O3Co\\Query\\Adapter\\": "adapters"
 		}
 	},
 	"minimum-stability": "dev",
