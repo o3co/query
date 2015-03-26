@@ -43,7 +43,8 @@ class HttpPersister extends AbstractPersister implements Persister
         $queryParts = array();
         parse_str($nativeQuery, $queryParts);
 
-        return $this->getClient()->lookup($queryParts, $query->getMaxResults(), $query->getOffset());
+        // pass http query parts 
+        return $this->getClient()->lookup($queryParts);
     }
     
     /**

@@ -11,13 +11,19 @@
 		"php" : ">=5.3.2"
 	},
 	"require-dev" : {
-		"doctrine/orm" : "~2.2,>=2.2.3"
+		"doctrine/orm" : "~2.2,>=2.2.3",
+        "guzzlehttp/guzzle": "~5.2.0"
 	},
+    "suggest": {
+		"doctrine/orm" : "require when use Doctrine ORM Bridge/Adapter Extension",
+        "guzzlehttp/guzzle": "require when use GuzzleHttp Bridge"
+    },
 	"replace": {
 		"o3co/query-core": "self.version",
 		"o3co/query-extension-http": "self.version",
 		"o3co/query-extension-cql": "self.version",
 		"o3co/query-bridge-doctrine-orm": "self.version",
+		"o3co/query-bridge-guzzlehttp": "self.version",
 		"o3co/query-adapter-doctrine": "self.version"
 	},
 	"autoload": {

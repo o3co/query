@@ -15,10 +15,8 @@ interface Client
 	 * lookup 
 	 * 
 	 * @param array $queryParts http query components. Such as 'q' for query, 'size' for fetch size. etc.
-     * @param integer $size Fetch size
-     * @param integer $offset Fetch offset where the fetch result begin at.
 	 * @access public
 	 * @return void
 	 */
-	function lookup(array $queryParts = array(), $size = null, $offset = 0);
+	function lookup(array $queryParts = array());
 }

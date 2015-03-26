@@ -2,6 +2,7 @@
 namespace O3Co\Query\Extension\Http;
 
 use O3Co\Query\Parser as ParserInterface;
+use O3Co\Query\Query;
 use O3Co\Query\Query\Term\Statement;
 use O3Co\Query\Persister;
 
@@ -18,7 +19,7 @@ use O3Co\Query\Persister;
 abstract class AbstractParser implements ParserInterface 
 {
     const DEFAULT_QUERY_KEY   = 'q';
-    const DEFAULT_SORT_KEY    = 'sort';
+    const DEFAULT_SORT_KEY    = 'order';
     const DEFAULT_SIZE_KEY    = 'size';
     const DEFAULT_OFFSET_KEY  = 'offset';
 
@@ -45,7 +46,7 @@ abstract class AbstractParser implements ParserInterface
 	 * @access public
 	 * @return void
 	 */
-	public function __construct(array $keys = array(), Persister $persiter = null)
+	public function __construct(array $keys = array(), Persister $persister = null)
 	{
 		if(empty($keys)) {
 			$keys = array(
