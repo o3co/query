@@ -104,13 +104,16 @@ class SimpleParser implements CriteriaParser
             }
 		}
 		// Join all field expressions by AND
+        $condition = null;
         if(1 < count($condExprs)) {
 		    $condition = $this->expr()->andX($condExprs);
-        } else {
+        } else if(1 == count($condExprs)) {
             $condition = array_shift($condExprs);
-        }
+        } 
 
-		$statement->setClause('condition', new Term\ConditionalClause(array($condition)));
+        if($condition) {
+    		$statement->setClause('condition', new Term\ConditionalClause(array($condition)));
+        }
 		//$statement->setClause('order', new Term\OrderClause($condition));
 
 		return new Query($statement, $this->persister);
