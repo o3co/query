@@ -10,7 +10,8 @@ use O3Co\Query\Query\Term;
 
 /**
  * SimpleParser 
- *    SimpleParser is a Default CriteriaParser which parse string with fql if needed, and use eq operator for other.
+ *    SimpleParser is a Default CriteriaParser to provide default simple expression.
+ *    This parse string as fql if needed, and use eq operator for other.
  * @uses CriteriaParser
  * @package { PACKAGE }
  * @copyright Copyrights (c) 1o1.co.jp, All Rights Reserved.
