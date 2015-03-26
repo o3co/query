@@ -18,6 +18,7 @@ interface Parser
 	 * @param mixed $query
 	 * @access public
 	 * @return Expression
+     * @throw \O3Co\Query\Exception\ParserException
 	 */
 	function parseFql($field, $query);
 }

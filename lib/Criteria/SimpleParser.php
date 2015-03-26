@@ -8,6 +8,8 @@ use O3Co\Query\Query;
 use O3Co\Query\Query\ExpressionBuilder;
 use O3Co\Query\Query\Term;
 
+use O3Co\Query\Exception\ParserException;
+
 /**
  * SimpleParser 
  *    SimpleParser is a Default CriteriaParser to provide default simple expression.
@@ -169,10 +171,13 @@ class SimpleParser implements CriteriaParser
 		$fqlParser = $this->getFqlParser();
 		if($fqlParser) {
 			// Convert fqlQuery to Query\Part
-			return $fqlParser->parseFql($field, $value);
-		} else {
-			return $this->expr()->eq($field, $value);
+            try {
+			    return $fqlParser->parseFql($field, $value);
+            } catch(ParserException $ex) {
+                // Failed on parse, thus use the value as string value
+            }
 		}
+		return $this->expr()->eq($field, $value);
 	}
 
     public function getFqlParser()
