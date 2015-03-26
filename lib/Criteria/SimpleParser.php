@@ -44,6 +44,11 @@ class SimpleParser implements CriteriaParser
      */
     private $persister;
 
+    protected $fieldClauseInCriteria = array(
+            'order'  => '_order',
+            'limit'  => '_limit',
+            'offset' => '_offset',
+        );
     /**
      * __construct 
      * 
@@ -72,24 +77,37 @@ class SimpleParser implements CriteriaParser
      * @access public
      * @return void
      */
-	public function parse(array $criteria, array $order = array())
+	public function parse(array $criteria)
 	{
-		$fieldExprs = array();
+		$statement = new Term\Statement();
+
+		$condExprs = array();
 		foreach($criteria as $field => $value) {
-			if(is_array($value)) {
-				$fieldExprs[] = $this->parseOrXValues($field, $value);
-			} else {
-				$fieldExprs[] = $this->parseFieldValue($field, $value);
-			}
+            switch($field) {
+            case $this->fieldClauseInCriteria['order']:
+                break;
+            case $this->fieldClauseInCriteria['offset']:
+                $statement->setClause('offset', new Term\OffsetClause($value));
+                break;
+            case $this->fieldClauseInCriteria['limit']:
+                $statement->setClause('limit', new Term\LimitClause($value));
+                break;
+            default:
+			    if(is_array($value)) {
+			    	$condExprs[] = $this->parseOrXValues($field, $value);
+			    } else {
+			    	$condExprs[] = $this->parseFieldValue($field, $value);
+			    }
+                break;
+            }
 		}
 		// Join all field expressions by AND
-        if(1 < count($fieldExprs)) {
-		    $condition = $this->expr()->andX($fieldExprs);
+        if(1 < count($condExprs)) {
+		    $condition = $this->expr()->andX($condExprs);
         } else {
-            $condition = array_shift($fieldExprs);
+            $condition = array_shift($condExprs);
         }
 
-		$statement = new Term\Statement();
 		$statement->setClause('condition', new Term\ConditionalClause(array($condition)));
 		//$statement->setClause('order', new Term\OrderClause($condition));
 
@@ -179,15 +197,53 @@ class SimpleParser implements CriteriaParser
 		return $this->exprBuilder;
 	}
     
+    /**
+     * getPersister 
+     * 
+     * @access public
+     * @return void
+     */
     public function getPersister()
     {
         return $this->persister;
     }
     
+    /**
+     * setPersister 
+     * 
+     * @param Persister $persister 
+     * @access public
+     * @return void
+     */
     public function setPersister(Persister $persister)
     {
         $this->persister = $persister;
         return $this;
+    }
+
+    /**
+     * setFieldClauseInCriteria 
+     * 
+     * @param mixed $clause 
+     * @param mixed $field 
+     * @access public
+     * @return void
+     */
+    public function setFieldClauseInCriteria($clause, $field)
+    {
+        $this->fieldClauseInCriteria[$clause] = $field;
+    }
+
+    /**
+     * getFieldClauseInCriteria 
+     * 
+     * @param mixed $clause 
+     * @access public
+     * @return void
+     */
+    public function getFieldClauseInCriteria($clause)
+    {
+        return $this->fieldClauseInCriteria[$clause];
     }
 }
 

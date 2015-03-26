@@ -14,11 +14,11 @@ interface CriteriaParser
 	/**
 	 * parse
 	 *   parse fields criteria and generate statement
+     *   
 	 * @param array $criteria 
-	 * @param array $order
 	 * @access public
 	 * @return Statement 
 	 */
-	function parse(array $criteria, array $order = array());
+	function parse(array $criteria);
 }
 
