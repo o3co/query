@@ -1,6 +1,6 @@
 # 設計
 
-![Components](../../images/architect.png "Components")
+![Components](../src/architect.png "Components")
 
 ## インタレスト
 
