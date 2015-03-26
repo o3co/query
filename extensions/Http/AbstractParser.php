@@ -16,6 +16,11 @@ use O3Co\Query\Query\Term\Statement;
  */
 abstract class AbstractParser implements ParserInterface 
 {
+    const DEFAULT_QUERY_KEY   = 'q';
+    const DEFAULT_SORT_KEY    = 'sort';
+    const DEFAULT_SIZE_KEY    = 'size';
+    const DEFAULT_OFFSET_KEY  = 'offset';
+
 	/**
 	 * queryComponentKeys 
 	 * 
@@ -33,6 +38,14 @@ abstract class AbstractParser implements ParserInterface
 	 */
 	public function __construct(array $keys = array())
 	{
+		if(empty($keys)) {
+			$keys = array(
+                    self::DEFAULT_QUERY_KEY => 'condition', 
+                    self::DEFAULT_SORT_KEY => 'order', 
+                    self::DEFAULT_SIZE_KEY => 'size', 
+                    self::DEFAULT_OFFSET_KEY => 'offset'
+                );
+		}
 		$this->queryComponentKeys = $keys; 
 	}
 
