@@ -3,6 +3,7 @@ namespace O3Co\Query\Extension\Http;
 
 use O3Co\Query\Parser as ParserInterface;
 use O3Co\Query\Query\Term\Statement;
+use O3Co\Query\Persister;
 
 /**
  * AbstractParser 
@@ -29,6 +30,14 @@ abstract class AbstractParser implements ParserInterface
 	 */
 	private $queryComponentKeys;
 
+    /**
+     * persister 
+     * 
+     * @var Persister 
+     * @access private
+     */
+    private $persister;
+
 	/**
 	 * __construct 
 	 * 
@@ -36,7 +45,7 @@ abstract class AbstractParser implements ParserInterface
 	 * @access public
 	 * @return void
 	 */
-	public function __construct(array $keys = array())
+	public function __construct(array $keys = array(), Persister $persiter = null)
 	{
 		if(empty($keys)) {
 			$keys = array(
@@ -47,6 +56,8 @@ abstract class AbstractParser implements ParserInterface
                 );
 		}
 		$this->queryComponentKeys = $keys; 
+
+        $this->persister = $persister;
 	}
 
 	/**
@@ -61,7 +72,7 @@ abstract class AbstractParser implements ParserInterface
 		$queries = array();
 		parse_str($query, $queries);
 
-        return $this->parseHttpQueryComponents($queries);
+        return new Query($this->parseHttpQueryComponents($queries), $this->getPersister());
     }
 
     /**
@@ -150,5 +161,16 @@ abstract class AbstractParser implements ParserInterface
 	{
 		$this->queryComponentKeys[$key] = $clause;
 	}
+    
+    public function getPersister()
+    {
+        return $this->persister;
+    }
+    
+    public function setPersister(Persister $persister)
+    {
+        $this->persister = $persister;
+        return $this;
+    }
 }
 
