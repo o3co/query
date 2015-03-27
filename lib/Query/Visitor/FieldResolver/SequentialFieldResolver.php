@@ -99,7 +99,7 @@ class SequentialFieldResolver implements FieldResolver
     {
         foreach($this->resolvers as $resolver) {
             if($resolver->canResolveField($field)) {
-                return $resolver->resolveField($field, $options);
+                $field  = $resolver->resolveField($field, $options);
             }
         }
 
