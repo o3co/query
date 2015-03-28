@@ -31,6 +31,9 @@ abstract class AbstractFieldDeclaredExpression extends AbstractTerm implements F
 	 */
 	public function __construct($field)
 	{
+        if(is_string($field)) {
+            $field = new FieldIdentifier($field);
+        }
 		$this->field = $field;
 	}
     
@@ -54,6 +57,9 @@ abstract class AbstractFieldDeclaredExpression extends AbstractTerm implements F
      */
     public function setField($field)
     {
+        if(is_string($field)) {
+            $field = new FieldIdentifier($field);
+        }
         $this->field = $field;
         return $this;
     }

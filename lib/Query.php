@@ -89,7 +89,7 @@ class Query
         if(!$this->persister) {
             throw new \RuntimeException('Persister is not specified.');
         }
-        return $this->getPersister()->getNativeQuery($this, $options);
+        return $this->persister->getNativeQuery($this, $options);
     }
     
     /**
@@ -103,6 +103,6 @@ class Query
         if(!$this->persister) {
             throw new \RuntimeException('Persister is not specified.');
         }
-        return $this->getPersister()->execute($this);
+        return $this->persister->execute($this);
     }
 }

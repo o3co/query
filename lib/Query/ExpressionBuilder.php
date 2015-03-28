@@ -226,10 +226,10 @@ class ExpressionBuilder
 			if($queryParser) {
 				return $queryParser->parseClausePart($value);
 			} else {
-				return new Term\ValueExpression($value);
+				return new Term\ValueIdentifier($value);
 			}
 		} else if(is_scalar($value)) {
-			return new Term\ValueExpression($value);
+			return new Term\ValueIdentifier($value);
 		} else if($value instanceof Term) {
 			return $value;
 		}

@@ -39,7 +39,7 @@ abstract class AbstractComparisonExpression extends AbstractFieldDeclaredExpress
 	 * @access public
 	 * @return void
 	 */
-	public function __construct($field, ValueExpression $value, $operator)
+	public function __construct($field, ValueIdentifier $value, $operator)
 	{
 		parent::__construct($field);
 		$this->value = $value;
@@ -65,7 +65,7 @@ abstract class AbstractComparisonExpression extends AbstractFieldDeclaredExpress
      * getValue 
      * 
      * @access public
-     * @return ValueExpression 
+     * @return ValueIdentifier 
      */
     public function getValue()
     {

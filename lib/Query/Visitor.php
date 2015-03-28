@@ -19,12 +19,4 @@ interface Visitor
 	 * @return void
 	 */
 	function visit(Term $term);
-
-    /**
-     * getNativeQuery 
-     * 
-     * @access public
-     * @return void
-     */
-    function getNativeQuery();
 }

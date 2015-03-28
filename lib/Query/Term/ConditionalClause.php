@@ -25,7 +25,7 @@ class ConditionalClause extends AbstractClause
 	public function add(Term $term)
 	{
 		if(!$term instanceof ConditionalExpression) {
-			throw new RuntimeException('ConditionalClause only accept ConditionalExpression for its term');
+			throw new \RuntimeException('ConditionalClause only accept ConditionalExpression for its term');
 		}
 
 		return parent::add($term);

@@ -3,7 +3,8 @@ namespace O3Co\Query\Persister;
 
 use O3Co\Query\Persister;
 use O3Co\Query\Query;
-use O3Co\Query\Query\Visitor;
+use O3Co\Query\Query\Visitor\OuterVisitor;
+use O3Co\Query\Query\Visitor\TreeVisitor;
 
 /**
  * AbstractPersister 
@@ -18,15 +19,31 @@ use O3Co\Query\Query\Visitor;
 abstract class AbstractPersister implements Persister
 {
     /**
+     * customVisitor 
+     *   Visitors to modify SimpleExpression 
+     * @var mixed
+     * @access private
+     */
+    private $customVisitors;
+
+    /**
      * outerVisitor 
-     * 
+     *   Visitor to output NativeQuery with SimpleExpression 
      * @var mixed
      * @access private
      */
     private $outerVisitor;
 
-    public function __construct(Visitor $outerVisitor)
+    /**
+     * __construct 
+     * 
+     * @param Visitor $outerVisitor 
+     * @access public
+     * @return void
+     */
+    public function __construct(OuterVisitor $outerVisitor, array $customVisitors = array())
     {
+        $this->customVisitors = new TreeVisitor($customVisitors); 
         $this->outerVisitor = $outerVisitor;
     }
 
@@ -39,12 +56,21 @@ abstract class AbstractPersister implements Persister
      */
     public function getNativeQuery(Query $query, array $options = array())
     {
-        $visitor = $this->getOuterVisitor();
-        // Visit SimpleExpressions
-        $query->getStatement()->dispatch($visitor);
+        // Clone the original SimpleExpression
+        $statement = clone $query->getStatement();
+
+        // Apply CustomVisitors to modify SimpleExpression
+        $customVisitors = $this->getCustomVisitors();
+        if($customVisitors) {
+            $statement->dispatch($customVisitors);
+        }
+
+        // Apply OuterVisitor to output the nativeQuery from SimpleExpression
+        $outerVisitor = $this->getOuterVisitor();
+        $statement->dispatch($outerVisitor);
         
         // Get NativeQuery from the Visitor
-        return $visitor->getNativeQuery($options);
+        return $outerVisitor->getNativeQuery($options);
     }
     
     /**
@@ -65,9 +91,20 @@ abstract class AbstractPersister implements Persister
      * @access public
      * @return void
      */
-    public function setOuterVisitor(Visitor $outerVisitor)
+    public function setOuterVisitor(OuterVisitor $outerVisitor)
     {
         $this->outerVisitor = $outerVisitor;
+        return $this;
+    }
+    
+    public function getCustomVisitors()
+    {
+        return $this->customVisitors;
+    }
+    
+    public function setCustomVisitors(array $customVisitors)
+    {
+        $this->customVisitors = new TreeVisitor($customVisitors);
         return $this;
     }
 }

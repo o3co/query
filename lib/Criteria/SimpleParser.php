@@ -79,30 +79,35 @@ class SimpleParser implements CriteriaParser
      * @access public
      * @return void
      */
-	public function parse(array $criteria)
+	public function parse(array $criteria, array $orderBy = array(), $limit = null, $offset = null)
 	{
 		$statement = new Term\Statement();
 
+        if(!empty($criteria)) {
+    		$statement->setClause('condition', $this->parseCriteria($criteria));
+        }
+
+        if(!empty($orderBy)) 
+            $statement->setClause('order', $this->parseOrderBy($orderBy));
+        if($limit)
+            $statement->setClause('limit', $this->parseLimit($limit));
+        if($offset)
+            $statement->setClause('offset', $this->parseOffset($offset));
+
+        return new Query($statement, $this->persister);
+    }
+
+    public function parseCriteria(array $criteria)
+    {
 		$condExprs = array();
 		foreach($criteria as $field => $value) {
-            switch($field) {
-            case $this->fieldClauseInCriteria['order']:
-                break;
-            case $this->fieldClauseInCriteria['offset']:
-                $statement->setClause('offset', new Term\OffsetClause($value));
-                break;
-            case $this->fieldClauseInCriteria['limit']:
-                $statement->setClause('limit', new Term\LimitClause($value));
-                break;
-            default:
-			    if(is_array($value)) {
-			    	$condExprs[] = $this->parseOrXValues($field, $value);
-			    } else {
-			    	$condExprs[] = $this->parseFieldValue($field, $value);
-			    }
-                break;
-            }
+		    if(is_array($value)) {
+		    	$condExprs[] = $this->parseOrXValues($field, $value);
+		    } else {
+		    	$condExprs[] = $this->parseFieldValue($field, $value);
+		    }
 		}
+
 		// Join all field expressions by AND
         $condition = null;
         if(1 < count($condExprs)) {
@@ -111,13 +116,35 @@ class SimpleParser implements CriteriaParser
             $condition = array_shift($condExprs);
         } 
 
-        if($condition) {
-    		$statement->setClause('condition', new Term\ConditionalClause(array($condition)));
-        }
-		//$statement->setClause('order', new Term\OrderClause($condition));
-
-		return new Query($statement, $this->persister);
+    	return new Term\ConditionalClause(array($condition));
 	}
+
+    public function parseOrderBy($orders)
+    {
+        if(is_string($orders) && $this->fqlParser) {
+            // specified with fql syntax 
+            return $this->fqlParser->parseOrderClause($this->fqlParser->createLexer($orders));
+        } else if(is_array($orders)) {
+            // field vs sorting type array.
+            $exprs = array(); 
+            foreach($orders as $field => $sort) {
+                $exprs[] = new Term\OrderExpression($field, $this->convertToSortingType($sort));
+            }
+            return new Term\OrderClause($exprs);
+        }
+
+        throw new \InvalidArgumentException('Order criteria is invalid format.');
+    }
+
+    public function parseLimit($limit)
+    {
+        return new Term\LimitClause(new Term\ValueIdentifier($limit));
+    }
+
+    public function parseOffset($offset)
+    {
+        return new Term\OffsetClause(new Term\ValueIdentifier($offset));
+    }
 
     /**
      * parseOrXValues 
@@ -252,6 +279,19 @@ class SimpleParser implements CriteriaParser
     public function getFieldClauseInCriteria($clause)
     {
         return $this->fieldClauseInCriteria[$clause];
+    }
+
+    protected function convertToSortingType($sort)
+    {
+        if(is_string($sort)) {
+            switch(strtolower($sort)) {
+            case 'asc':
+                return Term\OrderExpression::ORDER_ASCENDING;
+            case 'desc':
+            default:
+                return Term\OrderExpression::ORDER_DESCENDING;
+            }
+        }
     }
 }
 
