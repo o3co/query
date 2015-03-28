@@ -1,8 +1,9 @@
 <?php
-namespace O3Co\Query\Query\Visitor\FieldResolver;
+namespace O3Co\Query\Query\Visitor;
 
+use O3Co\Query\Query\Term\FieldExpression;
 /**
- * MappedFieldResolver 
+ * MappedFieldRenameVisitor
  * 
  * @uses FieldResolver
  * @package { PACKAGE }
@@ -10,7 +11,7 @@ namespace O3Co\Query\Query\Visitor\FieldResolver;
  * @author Yoshi<yoshi@1o1.co.jp> 
  * @license { LICENSE }
  */
-class MappedFieldResolver implements FieldResolver 
+class MappedFieldRenameVisitor extends AbstractFieldRenameVisitor 
 {
     /**
      * mappings 

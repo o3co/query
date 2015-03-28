@@ -14,9 +14,8 @@ use O3Co\Query\Query\Term;
  * @author Yoshi<yoshi@1o1.co.jp> 
  * @license { LICENSE }
  */
-abstract class ExpressionVisitor implements Visitor 
+abstract class ExpressionVisitor implements OuterVisitor 
 {
-
     /**
      * reset 
      * 
