@@ -18,6 +18,7 @@ git fetch --all
 
 git checkout ${TARGET_BRANCH} 
 
+echo "============================================================"
 # 
 git checkout refs/remotes/core/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter lib ${TARGET_BRANCH} 
@@ -48,7 +49,7 @@ git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 
 # 
 git checkout refs/remotes/bridge.doctrine_orm/${TARGET_BRANCH}
-git filter-branch -f --subdirectory-filter extendsion/Cql ${TARGET_BRANCH} 
+git filter-branch -f --subdirectory-filter bridges/DoctrineOrm ${TARGET_BRANCH} 
 git merge ${TARGET_BRANCH} 
 git push bridge.doctrine_orm HEAD:${TARGET_BRANCH}
 # reset the master
@@ -57,9 +58,12 @@ git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 
 # 
 git checkout refs/remotes/adapter.doctrine/${TARGET_BRANCH}
-git filter-branch -f --subdirectory-filter extendsion/Cql ${TARGET_BRANCH} 
+git filter-branch -f --subdirectory-filter adapters/DoctrineExtension ${TARGET_BRANCH} 
 git merge ${TARGET_BRANCH} 
 git push adapter.doctrine HEAD:${TARGET_BRANCH}
 # reset the master
 git checkout ${TARGET_BRANCH}
 git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
+
+echo "============================================================"
+echo "COMPLETE"
