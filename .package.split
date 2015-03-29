@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+TARGET_BRANCH=master
+
+#
+git checkout ${TARGET_BRANCH} 
+
+git remote add core https://github.com/o3co/query.core.git
+git remote add extension.cql https://github.com/o3co/query.extension.cql.git
+git remote add extension.http https://github.com/o3co/query.extension.http.git
+
+git remote add bridge.doctrine_orm https://github.com/o3co/query.bridge.doctrine_orm.git
+
+git remote add adapter.doctrine_orm https://github.com/o3co/query.adapter.doctrine.git
+
+
+git fetch --all
+
+git checkout ${TARGET_BRANCH} 
+
+# 
+git checkout refs/remotes/core/${TARGET_BRANCH}
+git filter-branch -f --subdirectory-filter lib ${TARGET_BRANCH} 
+git merge ${TARGET_BRANCH} 
+git push core HEAD:${TARGET_BRANCH}
+# reset the master
+git checkout ${TARGET_BRANCH}
+git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
+
+
+# 
+git checkout refs/remotes/extension.http/${TARGET_BRANCH}
+git filter-branch -f --subdirectory-filter extensions/Http ${TARGET_BRANCH} 
+git merge ${TARGET_BRANCH} 
+git push extension.http HEAD:${TARGET_BRANCH}
+# reset the master
+git checkout ${TARGET_BRANCH}
+git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
+
+# 
+git checkout refs/remotes/extension.cql/${TARGET_BRANCH}
+git filter-branch -f --subdirectory-filter extendsion/Cql ${TARGET_BRANCH} 
+git merge ${TARGET_BRANCH} 
+git push extension.cql HEAD:${TARGET_BRANCH}
+# reset the master
+git checkout ${TARGET_BRANCH}
+git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
+
+# 
+git checkout refs/remotes/bridge.doctrine_orm/${TARGET_BRANCH}
+git filter-branch -f --subdirectory-filter extendsion/Cql ${TARGET_BRANCH} 
+git merge ${TARGET_BRANCH} 
+git push bridge.doctrine_orm HEAD:${TARGET_BRANCH}
+# reset the master
+git checkout ${TARGET_BRANCH}
+git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
+
+# 
+git checkout refs/remotes/adapter.doctrine/${TARGET_BRANCH}
+git filter-branch -f --subdirectory-filter extendsion/Cql ${TARGET_BRANCH} 
+git merge ${TARGET_BRANCH} 
+git push adapter.doctrine HEAD:${TARGET_BRANCH}
+# reset the master
+git checkout ${TARGET_BRANCH}
+git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
