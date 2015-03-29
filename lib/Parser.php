@@ -30,4 +30,13 @@ interface Parser
 	 * @return void
 	 */
 	function parseClause($query, $part);
+
+    /**
+     * parseConditionalExpression 
+     * 
+     * @param mixed $query 
+     * @access public
+     * @return void
+     */
+    function parseConditionalExpression($query);
 }

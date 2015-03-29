@@ -34,26 +34,26 @@ class MappedFieldRenameVisitor extends AbstractFieldRenameVisitor
     }
 
     /**
-     * canResolveField 
+     * canResolveFieldName 
      * 
      * @param mixed $field 
      * @access public
      * @return void
      */
-    public function canResolveField($field)
+    public function canResolveFieldName($field)
     {
         return isset($this->mappings[$field]);
     }
 
     /**
-     * resolveField 
+     * resolveFieldName 
      * 
      * @param mixed $field 
      * @param array $options 
      * @access public
      * @return void
      */
-    public function resolveField($field, array $options = array())
+    public function resolveFieldName($field, array $options = array())
     {
         if(isset($this->mappings[$field])) {
             return $this->mappings[$field];

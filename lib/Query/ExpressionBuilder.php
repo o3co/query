@@ -16,22 +16,24 @@ class ExpressionBuilder
 {
 	// Conditional Expression
     /**
-     * andX 
+     * andx 
      * 
      * @param mixed $value 
      * @access public
      * @return void
      */
-	public function andX($value)
+	public function andx($value)
 	{
 		if(!is_array($value)) {
 			// get arguments 
 			$value = func_get_args();
 		}
+
 		// Convert all values to 
 		$conds = array_map(function($v) {
 				if(!$v instanceof Term\ConditionalExpression) {
-					return $this->buildPart($v);
+                    throw new \InvalidArgumentException(sprintf('arguments of andx has to be an array of ConditionalExpresion, but "%s" is given', is_object($v) ? get_class($v) : gettype($v)));
+					//return $this->buildPart($v);
 				}
 				return $v;
 			}, $value);
@@ -39,13 +41,13 @@ class ExpressionBuilder
 	}
 
     /**
-     * orX 
+     * orx 
      * 
      * @param mixed $value 
      * @access public
      * @return void
      */
-	public function orX($value)
+	public function orx($value)
 	{
 		if(!is_array($value)) {
 			// get arguments 
@@ -53,9 +55,11 @@ class ExpressionBuilder
 		}
 		// Convert all values to 
 		$conds = array_map(function($v) {
-				if(!$v instanceof Term\ConditionalExpression) {
-					return $this->buildPart($v);
-				}
+				if(is_string($v) && $this->getQueryParser()) {
+                    return $this->getQueryParser()->parseExpression($v);
+                } else if(!$v instanceof Term\ConditionalExpression) {
+                    throw new \InvalidArgumentException('');
+				} 
 				return $v;
 			}, $value);
 
@@ -73,10 +77,10 @@ class ExpressionBuilder
 	public function not($value)
 	{
 		if(!$value instanceof Term\ConditionalExpression) {
-			$value = $this->buildPart($value);
+            throw new \InvalidArgumentException('ExpressionBuilder::not only accept ConditionalExpression as argument 1');
 		}
 		//return new Term\Not($value);
-		return new Term\LogicalExpression($value, Term\LogicalExpression::TYPE_NOT);
+		return new Term\LogicalExpression(array($value), Term\LogicalExpression::TYPE_NOT);
 	}
 
 	// Comparison Expression
@@ -185,7 +189,7 @@ class ExpressionBuilder
      */
 	public function isNull($field)
 	{
-		return new Term\Any($field, Term\ComparisonExpression::IS_NOT);
+		return new Term\ComparisonExpression($field, new Term\ValueIdentifier(null), Term\ComparisonExpression::EQ);
 	}
 
     /**
@@ -197,18 +201,18 @@ class ExpressionBuilder
      */
 	public function isNotNull($field)
 	{
-		return new Term\Any($field);
+		return new Term\ComparisonExpression($field, new Term\ValueIdentifier(null), Term\ComparisonExpression::NEQ);
 	}
 
     /**
      * isAny 
-     * 
+     *   Alias of isNotNull 
      * @access public
      * @return void
      */
-	public function isAny()
+	public function isAny($field)
 	{
-		return new Term\Any($field);
+		return $this->isNotNull($field);
 	}
 
     /**
@@ -222,12 +226,7 @@ class ExpressionBuilder
 	{
 		if(is_string($value)) {
 			// try to parse the value with CQL Parser
-			$queryParser = $this->getQueryParser();
-			if($queryParser) {
-				return $queryParser->parseClausePart($value);
-			} else {
-				return new Term\ValueIdentifier($value);
-			}
+			return new Term\ValueIdentifier($value);
 		} else if(is_scalar($value)) {
 			return new Term\ValueIdentifier($value);
 		} else if($value instanceof Term) {

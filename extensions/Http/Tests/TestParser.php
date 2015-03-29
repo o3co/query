@@ -7,7 +7,12 @@ class TestParser extends AbstractParser
 
 	public function parseClause($query, $part)
 	{
-		return new ConditionalClause();
+        throw new \Exception('Not Impled');
 	}
+
+    public function parseConditionalExpression($query)
+    {
+        throw new \Exception('Not Impled');
+    }
 }
 

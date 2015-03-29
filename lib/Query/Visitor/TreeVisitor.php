@@ -17,6 +17,13 @@ class TreeVisitor implements Visitor
 {
     private $visitors = array();
 
+    public function __construct(array $visitors = array())
+    {
+        foreach($visitors as $visitor) {
+            $this->append($visitor);
+        }
+    }
+
     public function visit(Term $expr)
     {
         //
