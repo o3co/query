@@ -40,7 +40,7 @@ git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 
 # 
 git checkout refs/remotes/extension.cql/${TARGET_BRANCH}
-git filter-branch -f --subdirectory-filter extendsion/Cql ${TARGET_BRANCH} 
+git filter-branch -f --subdirectory-filter extensions/CQL ${TARGET_BRANCH} 
 git merge ${TARGET_BRANCH} 
 git push extension.cql HEAD:${TARGET_BRANCH}
 # reset the master
