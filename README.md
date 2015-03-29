@@ -2,6 +2,12 @@
 
 Query Component - Full edition.
 
+## Build Status
+
+[![Build Status](https://travis-ci.org/o3co/query.svg)](https://travis-ci.org/o3co/query)
+
+## Docs 
+
 To learn about Query Component more detail, please see below docs
 
   - [core](./lib/README.md)
