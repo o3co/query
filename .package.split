@@ -11,6 +11,7 @@ git remote add extension.http https://github.com/o3co/query.extension.http.git
 git remote add extension.extra https://github.com/o3co/query.extension.extra.git
 
 git remote add bridge.doctrine_orm https://github.com/o3co/query.bridge.doctrine_orm.git
+git remote add bridge.guzzle_http https://github.com/o3co/query.bridge.guzzle_http.git
 
 git remote add adapter.doctrine_orm https://github.com/o3co/query.adapter.doctrine.git
 
@@ -102,6 +103,22 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 git push bridge.doctrine_orm HEAD:${TARGET_BRANCH}
+# reset the master
+git checkout ${TARGET_BRANCH}
+git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
+
+# Bridge GuzzleHttp 
+git checkout refs/remotes/bridge.guzzle_http/${TARGET_BRANCH}
+git filter-branch -f --subdirectory-filter bridges/GuzzleHttp ${TARGET_BRANCH} 
+git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
+if [ $? -ne 0 ]; then
+    printf "\e[31mFailed to merge package 'bridge.guzzle_http'.\e[m\n"
+    printf "please execute following command to restore.\n"
+    printf "\tgit checkout ${TARGET_BRANCH}\n"
+    printf "\tgit reset --hard refs/original/refs/heads/${TARGET_BRANCH}\n"
+    exit 1
+fi
+git push bridge.guzzle_http HEAD:${TARGET_BRANCH}
 # reset the master
 git checkout ${TARGET_BRANCH}
 git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
