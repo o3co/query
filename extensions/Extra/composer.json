@@ -1,0 +1,30 @@
+{
+	"name": "o3co/query-extension-extra",
+	"type": "library",
+	"description": "Extension Extra for O3Co Query Component.",
+	"keywords": [
+		"php",
+		"query"
+	],
+	"license": "MIT",
+	"require" : {
+		"php" : ">=5.3.2",
+		"o3co/query-core": "~0.2@dev"
+	},
+    "suggest": {
+        "o3co/query-bridge-guzzlehttp": "To use GuzzleHttp as Http Client",
+        "o3co/query-extension-cql": "To use CQL for Server Request"
+    },
+	"autoload": {
+		"psr-4": {
+			"O3Co\\Query\\Extension\\Extra\\": ""
+		}
+	},
+	"minimum-stability": "dev",
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.2-dev"
+		}
+	}
+}
+
