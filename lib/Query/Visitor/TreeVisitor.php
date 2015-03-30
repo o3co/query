@@ -30,7 +30,7 @@ class TreeVisitor implements Visitor
         return $expr->dispatch($this);
     }
 
-    public function visitStatement(Part\Statement $statement)
+    public function visitStatement(Expr\Statement $statement)
     {
         foreach($this->visitors as $visitor) {
             $statement->dispatch($visitor);

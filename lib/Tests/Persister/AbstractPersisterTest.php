@@ -5,7 +5,7 @@ use O3Co\Query\Tests\TestPersister;
 use O3Co\Query\Tests\TestVisitor;
 use O3Co\Query\Query\Visitor\MappedFieldRenameVisitor;
 use O3Co\Query\Query;
-use O3Co\Query\Query\Part\Statement;
+use O3Co\Query\Query\Expr\Statement;
 
 class AbstractPersisterTest extends \PHPUnit_Framework_TestCase 
 {

@@ -48,11 +48,11 @@ class SimpleQueryBuilder implements QueryBuilder
      * 
      * @param Persister $persister 
      * @param ExpressionBuilder $exprBuilder 
-     * @param Part\Statement $statement 
+     * @param Expr\Statement $statement 
      * @access public
      * @return void
      */
-    public function __construct(Persister $persister = null, ExpressionBuilder $exprBuilder = null, Part\Statement $statement = null)
+    public function __construct(Persister $persister = null, ExpressionBuilder $exprBuilder = null, Expr\Statement $statement = null)
     {
         $this->persister = $persister;
 
@@ -61,7 +61,7 @@ class SimpleQueryBuilder implements QueryBuilder
         $this->expressionBuilder = $exprBuilder;
 
         if(!$statement) 
-            $statement = new Part\Statement();
+            $statement = new Expr\Statement();
         $this->statement = $statement;
     }
 

@@ -1,7 +1,7 @@
 <?php
 namespace O3Co\Query\Tests;
 
-use O3Co\Query\Query\Part\Statement;
+use O3Co\Query\Query\Expr\Statement;
 use O3Co\Query\Query;
 
 class QueryTest extends \PHPUnit_Framework_TestCase 

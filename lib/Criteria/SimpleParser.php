@@ -75,7 +75,7 @@ class SimpleParser implements CriteriaParser
      */
     public function parse(array $criteria, array $orderBy = array(), $limit = null, $offset = null)
     {
-        $statement = new Part\Statement();
+        $statement = new Expr\Statement();
 
         if(!empty($criteria)) {
             $statement->setClause('condition', $this->parseCriteria($criteria));

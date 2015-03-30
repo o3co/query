@@ -41,12 +41,12 @@ abstract class ExpressionVisitor implements OuterVisitor
     /**
      * visitStatement 
      * 
-     * @param Part\Statement $statement 
+     * @param Expr\Statement $statement 
      * @abstract
      * @access public
      * @return void
      */
-    abstract function visitStatement(Part\Statement $statement);
+    abstract function visitStatement(Expr\Statement $statement);
 
     /**
      * visitLogicalExpression 
