@@ -27,10 +27,13 @@
             <exclude>
                 <directory>./lib/Resources</directory>
                 <directory>./lib/Tests</directory>
+                <directory>./lib/vendor</directory>
                 <directory>./extensions/*/Resources</directory>
                 <directory>./extensions/*/Tests</directory>
+                <directory>./extensions/*/vendor</directory>
                 <directory>./bridges/*/Resources</directory>
                 <directory>./bridges/*/Tests</directory>
+                <directory>./bridges/*/vendor</directory>
             </exclude>
         </whitelist>
     </filter>
