@@ -2,7 +2,7 @@
 namespace O3Co\Query\Tests\Criteria;
 
 use O3Co\Query\Criteria\SimpleParser;
-use O3Co\Query\Query\Part;
+use O3Co\Query\Query\Expr;
 
 class SimpleCriteriaParserTest extends \PHPUnit_Framework_TestCase 
 {

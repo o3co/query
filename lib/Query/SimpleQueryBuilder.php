@@ -5,7 +5,7 @@ use O3Co\Query\Query;
 use O3Co\Query\QueryBuilder;
 use O3Co\Query\Persister;
 use O3Co\Query\Query\ExpressionBuilder;
-use O3Co\Query\Query\Part;
+use O3Co\Query\Query\Expr;
 
 
 /**

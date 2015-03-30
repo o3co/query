@@ -1,7 +1,7 @@
 <?php
 namespace O3Co\Query\Tests\Query;
 use O3Co\Query\Query\ExpressionBuilder;
-use O3Co\Query\Query\Part;
+use O3Co\Query\Query\Expr;
 
 /**
  * ExpressionBuilderTest 

@@ -1,7 +1,7 @@
 <?php
 namespace O3Co\Query\Query\Visitor;
 
-use O3Co\Query\Query\Part\FieldExpression;
+use O3Co\Query\Query\Expr\FieldExpression;
 /**
  * MappedFieldRenameVisitor
  * 

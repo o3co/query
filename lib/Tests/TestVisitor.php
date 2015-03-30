@@ -2,7 +2,7 @@
 namespace O3Co\Query\Tests;
 
 use O3Co\Query\Query\Visitor\OuterVisitor;
-use O3Co\Query\Query\Part;
+use O3Co\Query\Query\Expr;
 
 /**
  * TestVisitor 

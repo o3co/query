@@ -1,6 +1,6 @@
 <?php
 namespace O3Co\Query\Query\Part;
-use O3Co\Query\Query\Part;
+use O3Co\Query\Query\Expr;
 
 /**
  * CompositeExpression 

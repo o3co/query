@@ -2,7 +2,7 @@
 namespace O3Co\Query\Query;
 
 use O3Co\Query\Exception\UnsupportedException;
-use O3Co\Query\Query\Part;
+use O3Co\Query\Query\Expr;
 
 /**
  * ExpressionBuilder 
