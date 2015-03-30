@@ -16,9 +16,9 @@ interface Visitor
     /**
      * visit 
      *   visit Query Part 
-     * @param Part $term 
+     * @param Part $part 
      * @access public
      * @return void
      */
-    function visit(Expr\Part $term);
+    function visit(Expr\Part $part);
 }

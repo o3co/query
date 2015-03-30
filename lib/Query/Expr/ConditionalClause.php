@@ -6,7 +6,7 @@ use O3Co\Query\Query\Expr\ConditionalExpression;
 
 /**
  * ConditionalClause 
- *   ConditionalClause bind all internal terms with AND op
+ *   ConditionalClause bind all internal parts with AND op
  * @uses AbstractClause
  * @package \O3Co\Query
  * @copyright Copyrights (c) 1o1.co.jp, All Rights Reserved.
@@ -18,17 +18,17 @@ class ConditionalClause extends AbstractClause
     /**
      * add 
      * 
-     * @param Part $term 
+     * @param Part $part 
      * @access public
      * @return void
      */
-    public function add(Expr\Part $term)
+    public function add(Expr\Part $part)
     {
-        if(!$term instanceof ConditionalExpression) {
-            throw new \RuntimeException('ConditionalClause only accept ConditionalExpression for its term');
+        if(!$part instanceof ConditionalExpression) {
+            throw new \RuntimeException('ConditionalClause only accept ConditionalExpression for its part');
         }
 
-        return parent::add($term);
+        return parent::add($part);
     }
 
     /**

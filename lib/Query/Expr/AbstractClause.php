@@ -16,25 +16,25 @@ use O3Co\Query\Query\Expr;
 abstract class AbstractClause extends AbstractPart implements Clause, MultiExpressionPart
 {
     /**
-     * terms 
+     * parts 
      * 
      * @var mixed
      * @access private
      */
-    private $terms;
+    private $parts;
 
     /**
      * __construct 
      * 
-     * @param array $terms 
+     * @param array $parts 
      * @access public
      * @return void
      */
-    public function __construct(array $terms = array()) 
+    public function __construct(array $parts = array()) 
     {
-        $this->terms = array();
-        foreach($terms as $term) {
-            $this->add($term);
+        $this->parts = array();
+        foreach($parts as $part) {
+            $this->add($part);
         }
     }
 
@@ -46,19 +46,19 @@ abstract class AbstractClause extends AbstractPart implements Clause, MultiExpre
      */
     public function getParts()
     {
-        return $this->terms;
+        return $this->parts;
     }
 
     /**
      * add 
      * 
-     * @param Part $term 
+     * @param Part $part 
      * @access public
      * @return void
      */
-    public function add(Expr\Part $term)
+    public function add(Expr\Part $part)
     {
-        $this->terms[] = $term;
+        $this->parts[] = $part;
     }
 
     public function getExpressions()

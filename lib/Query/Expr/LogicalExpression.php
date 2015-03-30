@@ -27,14 +27,14 @@ class LogicalExpression extends CompositeExpression implements ConditionalExpres
     /**
      * __construct 
      * 
-     * @param array $terms 
+     * @param array $parts 
      * @param mixed $type 
      * @access public
      * @return void
      */
-    public function __construct(array $terms = array(), $type = self::TYPE_AND)
+    public function __construct(array $parts = array(), $type = self::TYPE_AND)
     {
-        parent::__construct($terms);
+        parent::__construct($parts);
 
         $this->type = $type;
     }

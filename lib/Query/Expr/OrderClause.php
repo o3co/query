@@ -52,7 +52,7 @@ class OrderClause extends AbstractPart implements Clause, MultiExpressionPart
     public function addExpression(Expression $expr)
     {
         if(!$expr instanceof OrderExpression) {
-            throw new \InvalidArgumentException('OrderClause only accept OrderExpression as its term.');
+            throw new \InvalidArgumentException('OrderClause only accept OrderExpression as its part.');
         }
 
         // internal Expression has to be an unique by field 

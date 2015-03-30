@@ -14,17 +14,17 @@ use O3Co\Query\Query\Expr;
 abstract class CompositeExpression extends AbstractPart implements Expression
 {
     /**
-     * terms 
+     * parts 
      * 
      * @var mixed
      * @access private
      */
-    private $terms;
+    private $parts;
 
-    public function __construct(array $terms = array())
+    public function __construct(array $parts = array())
     {
-        foreach($terms as $term) {
-            $this->add($term);
+        foreach($parts as $part) {
+            $this->add($part);
         }
     }
 
@@ -36,7 +36,7 @@ abstract class CompositeExpression extends AbstractPart implements Expression
      */
     public function getFirstPart()
     {
-        return reset($this->terms);
+        return reset($this->parts);
     }
     
     /**
@@ -47,22 +47,22 @@ abstract class CompositeExpression extends AbstractPart implements Expression
      */
     public function getParts()
     {
-        return $this->terms;
+        return $this->parts;
     }
     
     /**
      * setParts 
      * 
-     * @param array $terms 
+     * @param array $parts 
      * @access public
      * @return void
      */
-    public function setParts(array $terms)
+    public function setParts(array $parts)
     {
-        $this->terms = array();
+        $this->parts = array();
 
-        foreach($terms as $term) {
-            $this->add($term);
+        foreach($parts as $part) {
+            $this->add($part);
         }
         return $this;
     }
@@ -70,13 +70,13 @@ abstract class CompositeExpression extends AbstractPart implements Expression
     /**
      * add 
      * 
-     * @param Expression $term 
+     * @param Expression $part 
      * @access public
      * @return void
      */
-    public function add(Expression $term)
+    public function add(Expression $part)
     {
-        $this->terms[] = $term;
+        $this->parts[] = $part;
         return $this;
     }
 
