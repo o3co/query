@@ -52,9 +52,9 @@ class RangeExpression extends AbstractFieldDeclaredExpression implements Conditi
         }
         
         if(!$minComparison) {
-            $minComparison = new Part\ComparisonExpression($field, null, Part\ComparisonExpression::BIT_VALUE_ANY | Part\ComparisonExpression::EQ );
+            $minComparison = new Expr\ComparisonExpression($field, null, Expr\ComparisonExpression::BIT_VALUE_ANY | Expr\ComparisonExpression::EQ );
         } else if(!$maxComparison) {
-            $maxComparison = new Part\ComparisonExpression($field, null, Part\ComparisonExpression::BIT_VALUE_ANY | Part\ComparisonExpression::EQ );
+            $maxComparison = new Expr\ComparisonExpression($field, null, Expr\ComparisonExpression::BIT_VALUE_ANY | Expr\ComparisonExpression::EQ );
         }
 
         $this->setMinComparison($minComparison);

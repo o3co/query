@@ -42,22 +42,22 @@ class TreeVisitor implements Visitor
         }
     }
 
-    public function visitConditionalClause(Part\ConditionalClause $clause)
+    public function visitConditionalClause(Expr\ConditionalClause $clause)
     {
         foreach($this->visitors as $visitor) {
             $clause->dispatch($visitor);
         }
     }
 
-    public function visitLimitClause(Part\LimitClause $limit)
+    public function visitLimitClause(Expr\LimitClause $limit)
     {
     }
 
-    public function visitOffsetClause(Part\OffsetClause $offset)
+    public function visitOffsetClause(Expr\OffsetClause $offset)
     {
     }
 
-    public function visitOrderClause(Part\OrderClause $order)
+    public function visitOrderClause(Expr\OrderClause $order)
     {
     }
     

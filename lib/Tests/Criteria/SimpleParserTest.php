@@ -22,16 +22,16 @@ class SimpleCriteriaParserTest extends \PHPUnit_Framework_TestCase
         $statement = $query->getStatement();
 
         $rootExpr = $statement->getClause('condition')->getFirstExpression();
-        $this->assertInstanceof('O3Co\Query\Query\Part\LogicalExpression', $rootExpr);
+        $this->assertInstanceof('O3Co\Query\Query\Expr\LogicalExpression', $rootExpr);
 
         $condExprs = $rootExpr->getExpressions();
         $this->assertCount(2, $condExprs);
 
         foreach($condExprs as $expr) {
-            if($expr instanceof O3Co\Query\Query\Part\FieldDeclaredExpression) {
-                $this->assertInstanceof('O3Co\Query\Query\Part\ComparisonExpression', $expr);
+            if($expr instanceof O3Co\Query\Query\Expr\FieldDeclaredExpression) {
+                $this->assertInstanceof('O3Co\Query\Query\Expr\ComparisonExpression', $expr);
             } elseif('bar' === $expr) {
-                $this->assertInstanceof('O3Co\Query\Query\Part\LogicalExpression', $expr);
+                $this->assertInstanceof('O3Co\Query\Query\Expr\LogicalExpression', $expr);
             }
         }
 

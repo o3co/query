@@ -93,10 +93,10 @@ class SimpleQueryBuilder implements QueryBuilder
         if(!$this->getStatement()->hasClause($clause)) {
             switch($clause) {
             case 'condition':
-                $this->getStatement()->setClause($clause, new Part\ConditionalClause());
+                $this->getStatement()->setClause($clause, new Expr\ConditionalClause());
                 break;
             case 'order':
-                $this->getStatement()->setClause($clause, new Part\OrderClause());
+                $this->getStatement()->setClause($clause, new Expr\OrderClause());
                 break;
             default:
                 throw new \InvalidArgumentException(sprintf('Clasue "%s" is unknown type of Clause. Please init clause with setClause first.', $clause));
@@ -105,7 +105,7 @@ class SimpleQueryBuilder implements QueryBuilder
         }
             
         $clause = $this->getStatement()->getClause($clause);
-        if(!$clause instanceof Part\MultiExpressionPart) {
+        if(!$clause instanceof Expr\MultiExpressionPart) {
             throw new \RuntimeException('QueryBuilder::add only support a Clause as a MultiExpressionPart.');
         }
 
@@ -139,7 +139,7 @@ class SimpleQueryBuilder implements QueryBuilder
             $this->getStatement()->removeClause('limit');
         } else {
             // 
-            $this->getStatement()->setClause('limit', new Part\LimitClause($limit));
+            $this->getStatement()->setClause('limit', new Expr\LimitClause($limit));
         }
 
         return $this;
@@ -154,7 +154,7 @@ class SimpleQueryBuilder implements QueryBuilder
      */
     public function setFirstResult($offset)
     {
-        $this->getStatement()->setClause('offset', new Part\OffsetClause($offset));
+        $this->getStatement()->setClause('offset', new Expr\OffsetClause($offset));
 
         return $this;
     }

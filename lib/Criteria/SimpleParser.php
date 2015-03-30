@@ -110,7 +110,7 @@ class SimpleParser implements CriteriaParser
             $condition = array_shift($condExprs);
         } 
 
-        return new Part\ConditionalClause(array($condition));
+        return new Expr\ConditionalClause(array($condition));
     }
 
     public function parseOrderBy($orders)
@@ -122,9 +122,9 @@ class SimpleParser implements CriteriaParser
             // field vs sorting type array.
             $exprs = array(); 
             foreach($orders as $field => $sort) {
-                $exprs[] = new Part\OrderExpression($field, $this->convertToSortingType($sort));
+                $exprs[] = new Expr\OrderExpression($field, $this->convertToSortingType($sort));
             }
-            return new Part\OrderClause($exprs);
+            return new Expr\OrderClause($exprs);
         }
 
         throw new \InvalidArgumentException('Order criteria is invalid format.');
@@ -132,12 +132,12 @@ class SimpleParser implements CriteriaParser
 
     public function parseLimit($limit)
     {
-        return new Part\LimitClause(new Part\ValueIdentifier($limit));
+        return new Expr\LimitClause(new Expr\ValueIdentifier($limit));
     }
 
     public function parseOffset($offset)
     {
-        return new Part\OffsetClause(new Part\ValueIdentifier($offset));
+        return new Expr\OffsetClause(new Expr\ValueIdentifier($offset));
     }
 
     /**
@@ -255,10 +255,10 @@ class SimpleParser implements CriteriaParser
         if(is_string($sort)) {
             switch(strtolower($sort)) {
             case 'asc':
-                return Part\OrderExpression::ORDER_ASCENDING;
+                return Expr\OrderExpression::ORDER_ASCENDING;
             case 'desc':
             default:
-                return Part\OrderExpression::ORDER_DESCENDING;
+                return Expr\OrderExpression::ORDER_DESCENDING;
             }
         }
     }

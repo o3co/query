@@ -31,13 +31,13 @@ class ExpressionBuilder
 
         // Convert all values to 
         $conds = array_map(function($v) {
-                if(!$v instanceof Part\ConditionalExpression) {
+                if(!$v instanceof Expr\ConditionalExpression) {
                     throw new \InvalidArgumentException(sprintf('arguments of andx has to be an array of ConditionalExpresion, but "%s" is given', is_object($v) ? get_class($v) : gettype($v)));
                     //return $this->buildPart($v);
                 }
                 return $v;
             }, $value);
-        return new Part\LogicalExpression($conds, Part\LogicalExpression::TYPE_AND);
+        return new Expr\LogicalExpression($conds, Expr\LogicalExpression::TYPE_AND);
     }
 
     /**
@@ -57,14 +57,14 @@ class ExpressionBuilder
         $conds = array_map(function($v) {
                 if(is_string($v) && $this->getQueryParser()) {
                     return $this->getQueryParser()->parseExpression($v);
-                } else if(!$v instanceof Part\ConditionalExpression) {
+                } else if(!$v instanceof Expr\ConditionalExpression) {
                     throw new \InvalidArgumentException('');
                 } 
                 return $v;
             }, $value);
 
-        //return new Part\OrX($conds);
-        return new Part\LogicalExpression($conds, Part\LogicalExpression::TYPE_OR);
+        //return new Expr\OrX($conds);
+        return new Expr\LogicalExpression($conds, Expr\LogicalExpression::TYPE_OR);
     }
 
     /**
@@ -76,11 +76,11 @@ class ExpressionBuilder
      */
     public function not($value)
     {
-        if(!$value instanceof Part\ConditionalExpression) {
+        if(!$value instanceof Expr\ConditionalExpression) {
             throw new \InvalidArgumentException('ExpressionBuilder::not only accept ConditionalExpression as argument 1');
         }
-        //return new Part\Not($value);
-        return new Part\LogicalExpression(array($value), Part\LogicalExpression::TYPE_NOT);
+        //return new Expr\Not($value);
+        return new Expr\LogicalExpression(array($value), Expr\LogicalExpression::TYPE_NOT);
     }
 
     // Comparison Expression
@@ -97,7 +97,7 @@ class ExpressionBuilder
         if(!$value instanceof Part) {
             $value = $this->buildPart($value);
         }
-        return new Part\ComparisonExpression($field, $value, Part\ComparisonExpression::EQ);
+        return new Expr\ComparisonExpression($field, $value, Expr\ComparisonExpression::EQ);
     }
 
     /**
@@ -113,7 +113,7 @@ class ExpressionBuilder
         if(!$value instanceof Part) {
             $value = $this->buildPart($value);
         }
-        return new Part\ComparisonExpression($field, $value, Part\ComparisonExpression::NEQ);
+        return new Expr\ComparisonExpression($field, $value, Expr\ComparisonExpression::NEQ);
     }
 
     /**
@@ -126,10 +126,10 @@ class ExpressionBuilder
      */
     public function gt($field, $value)
     {
-        if(!$value instanceof Part\ConditionalExpression) {
+        if(!$value instanceof Expr\ConditionalExpression) {
             $value = $this->buildPart($value);
         }
-        return new Part\ComparisonExpression($field, $value, Part\ComparisonExpression::GT);
+        return new Expr\ComparisonExpression($field, $value, Expr\ComparisonExpression::GT);
     }
 
     /**
@@ -142,10 +142,10 @@ class ExpressionBuilder
      */
     public function gte($field, $value)
     {
-        if(!$value instanceof Part\ConditionalExpression) {
+        if(!$value instanceof Expr\ConditionalExpression) {
             $value = $this->buildPart($value);
         }
-        return new Part\ComparisonExpression($field, $value, Part\ComparisonExpression::GTE);
+        return new Expr\ComparisonExpression($field, $value, Expr\ComparisonExpression::GTE);
     }
 
     /**
@@ -161,7 +161,7 @@ class ExpressionBuilder
         if(!$value instanceof Part) {
             $value = $this->buildPart($value);
         }
-        return new Part\ComparisonExpression($field, $value, Part\ComparisonExpression::LT);
+        return new Expr\ComparisonExpression($field, $value, Expr\ComparisonExpression::LT);
     }
 
     /**
@@ -174,10 +174,10 @@ class ExpressionBuilder
      */
     public function lte($field, $value)
     {
-        if(!$value instanceof Part\ConditionalExpression) {
+        if(!$value instanceof Expr\ConditionalExpression) {
             $value = $this->buildPart($value);
         }
-        return new Part\ComparisonExpression($field, $value, Part\ComparisonExpression::LTE);
+        return new Expr\ComparisonExpression($field, $value, Expr\ComparisonExpression::LTE);
     }
 
     /**
@@ -189,7 +189,7 @@ class ExpressionBuilder
      */
     public function isNull($field)
     {
-        return new Part\ComparisonExpression($field, new Part\ValueIdentifier(null), Part\ComparisonExpression::EQ);
+        return new Expr\ComparisonExpression($field, new Expr\ValueIdentifier(null), Expr\ComparisonExpression::EQ);
     }
 
     /**
@@ -201,7 +201,7 @@ class ExpressionBuilder
      */
     public function isNotNull($field)
     {
-        return new Part\ComparisonExpression($field, new Part\ValueIdentifier(null), Part\ComparisonExpression::NEQ);
+        return new Expr\ComparisonExpression($field, new Expr\ValueIdentifier(null), Expr\ComparisonExpression::NEQ);
     }
 
     /**
@@ -217,12 +217,12 @@ class ExpressionBuilder
 
     public function asc($field)
     {
-        return new Part\OrderExpression($field, Part\OrderExpression::ORDER_ASCENDING);
+        return new Expr\OrderExpression($field, Expr\OrderExpression::ORDER_ASCENDING);
     }
 
     public function desc($field)
     {
-        return new Part\OrderExpression($field, Part\OrderExpression::ORDER_DESCENDING);
+        return new Expr\OrderExpression($field, Expr\OrderExpression::ORDER_DESCENDING);
     }
 
     /**
@@ -236,9 +236,9 @@ class ExpressionBuilder
     {
         if(is_string($value)) {
             // try to parse the value with CQL Parser
-            return new Part\ValueIdentifier($value);
+            return new Expr\ValueIdentifier($value);
         } else if(is_scalar($value)) {
-            return new Part\ValueIdentifier($value);
+            return new Expr\ValueIdentifier($value);
         } else if($value instanceof Part) {
             return $value;
         }

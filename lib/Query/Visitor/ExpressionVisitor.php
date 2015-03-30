@@ -51,10 +51,10 @@ abstract class ExpressionVisitor implements OuterVisitor
     /**
      * visitLogicalExpression 
      * 
-     * @param Part\LogicalExpression $expr 
+     * @param Expr\LogicalExpression $expr 
      * @abstract
      * @access public
      * @return void
      */
-    abstract function visitLogicalExpression(Part\LogicalExpression $expr);
+    abstract function visitLogicalExpression(Expr\LogicalExpression $expr);
 }

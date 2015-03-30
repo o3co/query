@@ -43,8 +43,8 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = $this->getExpressionBuilder();
 
         $expr = $builder->andx($builder->eq('foo', 1), $builder->eq('bar', 'bar'));
-        $this->assertInstanceof('O3Co\Query\Query\Part\LogicalExpression', $expr);
-        $this->assertEquals(Part\LogicalExpression::TYPE_AND, $expr->getType());
+        $this->assertInstanceof('O3Co\Query\Query\Expr\LogicalExpression', $expr);
+        $this->assertEquals(Expr\LogicalExpression::TYPE_AND, $expr->getType());
         $this->assertCount(2, $expr->getExpressions());
     }
 
@@ -59,8 +59,8 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = $this->getExpressionBuilder();
 
         $expr = $builder->orx($builder->eq('foo', 1), $builder->eq('bar', 'bar'));
-        $this->assertInstanceof('O3Co\Query\Query\Part\LogicalExpression', $expr);
-        $this->assertEquals(Part\LogicalExpression::TYPE_OR, $expr->getType());
+        $this->assertInstanceof('O3Co\Query\Query\Expr\LogicalExpression', $expr);
+        $this->assertEquals(Expr\LogicalExpression::TYPE_OR, $expr->getType());
         $this->assertCount(2, $expr->getExpressions());
     }
 
@@ -69,8 +69,8 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = $this->getExpressionBuilder();
 
         $expr = $builder->not($builder->eq('foo', 1));
-        $this->assertInstanceof('O3Co\Query\Query\Part\LogicalExpression', $expr);
-        $this->assertEquals(Part\LogicalExpression::TYPE_NOT, $expr->getType());
+        $this->assertInstanceof('O3Co\Query\Query\Expr\LogicalExpression', $expr);
+        $this->assertEquals(Expr\LogicalExpression::TYPE_NOT, $expr->getType());
         $this->assertCount(1, $expr->getExpressions());
 
         try {
@@ -86,8 +86,8 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = $this->getExpressionBuilder();
 
         $expr = $builder->eq('foo', 'foo');
-        $this->assertInstanceof('O3Co\Query\Query\Part\ComparisonExpression', $expr);
-        $this->assertEquals(Part\ComparisonExpression::EQ, $expr->getOperator());
+        $this->assertInstanceof('O3Co\Query\Query\Expr\ComparisonExpression', $expr);
+        $this->assertEquals(Expr\ComparisonExpression::EQ, $expr->getOperator());
         $this->assertEquals('foo', $expr->getField()->getName());
         $this->assertEquals('foo', $expr->getValue()->getValue());
     }
@@ -97,8 +97,8 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = $this->getExpressionBuilder();
 
         $expr = $builder->neq('foo', 'foo');
-        $this->assertInstanceof('O3Co\Query\Query\Part\ComparisonExpression', $expr);
-        $this->assertEquals(Part\ComparisonExpression::NEQ, $expr->getOperator());
+        $this->assertInstanceof('O3Co\Query\Query\Expr\ComparisonExpression', $expr);
+        $this->assertEquals(Expr\ComparisonExpression::NEQ, $expr->getOperator());
         $this->assertEquals('foo', $expr->getField()->getName());
         $this->assertEquals('foo', $expr->getValue()->getValue());
     }
@@ -108,8 +108,8 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = $this->getExpressionBuilder();
 
         $expr = $builder->gt('foo', 1);
-        $this->assertInstanceof('O3Co\Query\Query\Part\ComparisonExpression', $expr);
-        $this->assertEquals(Part\ComparisonExpression::GT, $expr->getOperator());
+        $this->assertInstanceof('O3Co\Query\Query\Expr\ComparisonExpression', $expr);
+        $this->assertEquals(Expr\ComparisonExpression::GT, $expr->getOperator());
         $this->assertEquals('foo', $expr->getField()->getName());
         $this->assertEquals(1, $expr->getValue()->getValue());
     }
@@ -119,8 +119,8 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = $this->getExpressionBuilder();
 
         $expr = $builder->gte('foo', 1);
-        $this->assertInstanceof('O3Co\Query\Query\Part\ComparisonExpression', $expr);
-        $this->assertEquals(Part\ComparisonExpression::GTE, $expr->getOperator());
+        $this->assertInstanceof('O3Co\Query\Query\Expr\ComparisonExpression', $expr);
+        $this->assertEquals(Expr\ComparisonExpression::GTE, $expr->getOperator());
         $this->assertEquals('foo', $expr->getField()->getName());
         $this->assertEquals(1, $expr->getValue()->getValue());
     }
@@ -130,8 +130,8 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = $this->getExpressionBuilder();
 
         $expr = $builder->lt('foo', 1);
-        $this->assertInstanceof('O3Co\Query\Query\Part\ComparisonExpression', $expr);
-        $this->assertEquals(Part\ComparisonExpression::LT, $expr->getOperator());
+        $this->assertInstanceof('O3Co\Query\Query\Expr\ComparisonExpression', $expr);
+        $this->assertEquals(Expr\ComparisonExpression::LT, $expr->getOperator());
         $this->assertEquals('foo', $expr->getField()->getName());
         $this->assertEquals(1, $expr->getValue()->getValue());
     }
@@ -141,8 +141,8 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = $this->getExpressionBuilder();
 
         $expr = $builder->lte('foo', 1);
-        $this->assertInstanceof('O3Co\Query\Query\Part\ComparisonExpression', $expr);
-        $this->assertEquals(Part\ComparisonExpression::LTE, $expr->getOperator());
+        $this->assertInstanceof('O3Co\Query\Query\Expr\ComparisonExpression', $expr);
+        $this->assertEquals(Expr\ComparisonExpression::LTE, $expr->getOperator());
         $this->assertEquals('foo', $expr->getField()->getName());
         $this->assertEquals(1, $expr->getValue()->getValue());
     }
@@ -152,8 +152,8 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = $this->getExpressionBuilder();
 
         $expr = $builder->isNull('foo');
-        $this->assertInstanceof('O3Co\Query\Query\Part\ComparisonExpression', $expr);
-        $this->assertEquals(Part\ComparisonExpression::EQ, $expr->getOperator());
+        $this->assertInstanceof('O3Co\Query\Query\Expr\ComparisonExpression', $expr);
+        $this->assertEquals(Expr\ComparisonExpression::EQ, $expr->getOperator());
         $this->assertEquals('foo', $expr->getField()->getName());
         $this->assertEquals(null, $expr->getValue()->getValue());
     }
@@ -163,8 +163,8 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = $this->getExpressionBuilder();
 
         $expr = $builder->isNotNull('foo');
-        $this->assertInstanceof('O3Co\Query\Query\Part\ComparisonExpression', $expr);
-        $this->assertEquals(Part\ComparisonExpression::NEQ, $expr->getOperator());
+        $this->assertInstanceof('O3Co\Query\Query\Expr\ComparisonExpression', $expr);
+        $this->assertEquals(Expr\ComparisonExpression::NEQ, $expr->getOperator());
         $this->assertEquals('foo', $expr->getField()->getName());
         $this->assertEquals(null, $expr->getValue()->getValue());
     }
@@ -174,8 +174,8 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = $this->getExpressionBuilder();
 
         $expr = $builder->isAny('foo');
-        $this->assertInstanceof('O3Co\Query\Query\Part\ComparisonExpression', $expr);
-        $this->assertEquals(Part\ComparisonExpression::NEQ, $expr->getOperator());
+        $this->assertInstanceof('O3Co\Query\Query\Expr\ComparisonExpression', $expr);
+        $this->assertEquals(Expr\ComparisonExpression::NEQ, $expr->getOperator());
         $this->assertEquals('foo', $expr->getField()->getName());
         $this->assertEquals(null, $expr->getValue()->getValue());
     }

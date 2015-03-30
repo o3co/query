@@ -17,11 +17,11 @@ abstract class AbstractFieldRenameVisitor extends AbstractCustomVisitor
     /**
      * visitFieldExpression 
      * 
-     * @param Part\FieldExpression $field 
+     * @param Expr\FieldExpression $field 
      * @access public
      * @return void
      */
-    public function visitFieldExpression(Part\FieldExpression $field)
+    public function visitFieldExpression(Expr\FieldExpression $field)
     {
         if($this->canResolveField($field->getName())) {
             $field->setName($this->resolveField($field->getName()));
