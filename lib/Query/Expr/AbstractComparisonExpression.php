@@ -1,5 +1,5 @@
 <?php
-namespace O3Co\Query\Query\Part;
+namespace O3Co\Query\Query\Expr;
 
 abstract class AbstractComparisonExpression extends AbstractFieldDeclaredExpression implements ConditionalExpression 
 {
