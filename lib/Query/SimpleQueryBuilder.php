@@ -103,7 +103,13 @@ class SimpleQueryBuilder implements QueryBuilder
 				break;
 			}
 		}
-		$this->getStatement()->getClause($clause)->add($part);
+            
+        $clause = $this->getStatement()->getClause($clause);
+        if(!$clause instanceof Term\MultiExpressionPart) {
+            throw new \RuntimeException('QueryBuilder::add only support a Clause as a MultiExpressionPart.');
+        }
+
+		$clause->addExpression($part);
 		return $this;
 	}
 
@@ -116,6 +122,41 @@ class SimpleQueryBuilder implements QueryBuilder
     public function addOrder($expr)
     {
         return $this->add($expr, 'order');
+    }
+
+    /**
+     * setMaxResults 
+     * 
+     * @param mixed $limit 
+     * @access public
+     * @return void
+     */
+    public function setMaxResults($limit)
+    {
+        $limit = (int)$limit;
+
+        if(0 === $limit) {
+            $this->getStatement()->removeClause('limit');
+        } else {
+            // 
+            $this->getStatement()->setClause('limit', new Term\LimitClause($limit));
+        }
+
+        return $this;
+    }
+
+    /**
+     * setFirstResult 
+     * 
+     * @param mixed $offset 
+     * @access public
+     * @return void
+     */
+    public function setFirstResult($offset)
+    {
+        $this->getStatement()->setClause('offset', new Term\OffsetClause($offset));
+
+        return $this;
     }
     /**
      * getExpressionBuilder 

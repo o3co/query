@@ -35,5 +35,23 @@ interface QueryBuilder
 	 * @return void
 	 */
 	public function add($expr);
+
+    /**
+     * setMaxResults 
+     * 
+     * @param integer $limit 
+     * @access public
+     * @return QueryBuilder 
+     */
+    public function setMaxResults($limit);
+
+    /**
+     * setFirstResult 
+     * 
+     * @param interger $offset 
+     * @access public
+     * @return QueryBuilder 
+     */
+    public function setFirstResult($offset);
 }
 

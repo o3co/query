@@ -10,7 +10,7 @@ namespace O3Co\Query\Query\Term;
  * @author Yoshi<yoshi@1o1.co.jp> 
  * @license { LICENSE }
  */
-class OrderExpression extends AbstractFieldDeclaredExpression 
+class OrderExpression extends AbstractFieldDeclaredExpression implements Expression 
 {
 	const ORDER_ASCENDING  = 0;
 	const ORDER_DESCENDING = 1;

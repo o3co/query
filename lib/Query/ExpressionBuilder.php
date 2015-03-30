@@ -215,6 +215,16 @@ class ExpressionBuilder
 		return $this->isNotNull($field);
 	}
 
+    public function asc($field)
+    {
+        return new Term\OrderExpression($field, Term\OrderExpression::ORDER_ASCENDING);
+    }
+
+    public function desc($field)
+    {
+        return new Term\OrderExpression($field, Term\OrderExpression::ORDER_DESCENDING);
+    }
+
     /**
      * buildPart 
      * 

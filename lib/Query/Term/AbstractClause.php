@@ -13,7 +13,7 @@ use O3Co\Query\Query\Term;
  * @author Yoshi<yoshi@1o1.co.jp> 
  * @license { LICENSE }
  */
-abstract class AbstractClause extends AbstractTerm implements Clause
+abstract class AbstractClause extends AbstractTerm implements Clause, MultiExpressionPart
 {
 	/**
 	 * terms 
@@ -60,5 +60,15 @@ abstract class AbstractClause extends AbstractTerm implements Clause
 	{
 		$this->terms[] = $term;
 	}
+
+    public function getExpressions()
+    {
+        return $this->getTerms();
+    }
+
+    public function addExpression(Expression $expr)
+    {
+        $this->add($expr);
+    }
 }
 
