@@ -6,7 +6,7 @@ namespace O3Co\Query\Query\Term;
  *   TextComparison Match is an expression as WILECARD matching
  *   "LIKE %" for SQL, "*" for Lucene and other FTS. 
  * 
- * @package { PACKAGE }
+ * @package \O3Co\Query
  * @copyright Copyrights (c) 1o1.co.jp, All Rights Reserved.
  * @author Yoshi<yoshi@1o1.co.jp> 
  * @license MIT

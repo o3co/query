@@ -11,7 +11,7 @@ use O3Co\Query\Persister;
  *   Abstract Parser for Http Based Query 
  * @uses ParserInterface
  * @abstract
- * @package { PACKAGE }
+ * @package \O3Co\Query
  * @copyright Copyrights (c) 1o1.co.jp, All Rights Reserved.
  * @author Yoshi<yoshi@1o1.co.jp> 
  * @license MIT

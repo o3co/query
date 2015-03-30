@@ -9,7 +9,7 @@ use O3Co\Query\Query\Term;
  *   Ex)  array('foo', 'bar') is still a Value of identifier. 
  *        We do not parse as Collection[Value('foo'), Value('bar')] like AST does
  * @uses AbstractTerm
- * @package { PACKAGE }
+ * @package \O3Co\Query
  * @copyright Copyrights (c) 1o1.co.jp, All Rights Reserved.
  * @author Yoshi<yoshi@1o1.co.jp> 
  * @license MIT
