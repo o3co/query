@@ -6,8 +6,8 @@
 		"php",
 		"query"
 	],
-	"licence": "MIT",
-	"requires" : {
+	"license": "MIT",
+	"require" : {
 		"php" : ">=5.3.2"
 	},
 	"autoload": {
