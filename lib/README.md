@@ -12,5 +12,6 @@ Inspired by Doctrine Query.
   - [English](./Resources/docs/en/index.md)
   - [Japanese/日本語](./Resources/docs/ja/index.md)
 
+## Related Components 
 
-
+  - [Query](https://github.com/o3co/query)
