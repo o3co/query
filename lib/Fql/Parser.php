@@ -11,14 +11,14 @@ namespace O3Co\Query\Fql;
  */
 interface Parser
 {
-	/**
-	 * parseFql 
-	 *   Parse field query and generate represented SimpleExpression. 
-	 * @param string $field
-	 * @param mixed $query
-	 * @access public
-	 * @return Expression
+    /**
+     * parseFql 
+     *   Parse field query and generate represented SimpleExpression. 
+     * @param string $field
+     * @param mixed $query
+     * @access public
+     * @return Expression
      * @throw \O3Co\Query\Exception\ParserException
-	 */
-	function parseFql($field, $query);
+     */
+    function parseFql($field, $query);
 }

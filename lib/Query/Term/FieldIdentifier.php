@@ -13,25 +13,25 @@ use O3Co\Query\Query\Term;
  */
 class FieldIdentifier implements Term
 {
-	/**
-	 * name
-	 * 
-	 * @var string
-	 * @access private
-	 */
-	private $name;
+    /**
+     * name
+     * 
+     * @var string
+     * @access private
+     */
+    private $name;
 
-	/**
-	 * __construct 
-	 * 
-	 * @param string $name
-	 * @access public
-	 * @return void
-	 */
-	public function __construct($name)
-	{
-		$this->name = $name;
-	}
+    /**
+     * __construct 
+     * 
+     * @param string $name
+     * @access public
+     * @return void
+     */
+    public function __construct($name)
+    {
+        $this->name = $name;
+    }
     
     /**
      * getName 

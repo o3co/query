@@ -15,51 +15,51 @@ use O3Co\Query\Query\Term;
  */
 abstract class AbstractClause extends AbstractTerm implements Clause, MultiExpressionPart
 {
-	/**
-	 * terms 
-	 * 
-	 * @var mixed
-	 * @access private
-	 */
-	private $terms;
+    /**
+     * terms 
+     * 
+     * @var mixed
+     * @access private
+     */
+    private $terms;
 
-	/**
-	 * __construct 
-	 * 
-	 * @param array $terms 
-	 * @access public
-	 * @return void
-	 */
-	public function __construct(array $terms = array()) 
-	{
-		$this->terms = array();
-		foreach($terms as $term) {
-			$this->add($term);
-		}
-	}
+    /**
+     * __construct 
+     * 
+     * @param array $terms 
+     * @access public
+     * @return void
+     */
+    public function __construct(array $terms = array()) 
+    {
+        $this->terms = array();
+        foreach($terms as $term) {
+            $this->add($term);
+        }
+    }
 
-	/**
-	 * getTerms 
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	public function getTerms()
-	{
-		return $this->terms;
-	}
+    /**
+     * getTerms 
+     * 
+     * @access public
+     * @return void
+     */
+    public function getTerms()
+    {
+        return $this->terms;
+    }
 
-	/**
-	 * add 
-	 * 
-	 * @param Term $term 
-	 * @access public
-	 * @return void
-	 */
-	public function add(Term $term)
-	{
-		$this->terms[] = $term;
-	}
+    /**
+     * add 
+     * 
+     * @param Term $term 
+     * @access public
+     * @return void
+     */
+    public function add(Term $term)
+    {
+        $this->terms[] = $term;
+    }
 
     public function getExpressions()
     {

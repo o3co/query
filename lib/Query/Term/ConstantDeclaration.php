@@ -3,11 +3,11 @@ namespace O3Co\Query\Query\Term;
 
 class Constant 
 {
-	private $value;
+    private $value;
 
-	public function __construct($value)
-	{
-		$this->value = $value;
-	}
+    public function __construct($value)
+    {
+        $this->value = $value;
+    }
 }
 

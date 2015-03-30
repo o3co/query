@@ -15,30 +15,30 @@ use O3Co\Query\Query\Visitor;
  */
 abstract class AbstractTerm implements Term
 {
-	/**
-	 * __get 
-	 * 
-	 * @param mixed $name 
-	 * @access public
-	 * @return void
-	 */
-	public function __get($name)
-	{
-		return $this->{'get' . ucfirst($name)}();
-	}
+    /**
+     * __get 
+     * 
+     * @param mixed $name 
+     * @access public
+     * @return void
+     */
+    public function __get($name)
+    {
+        return $this->{'get' . ucfirst($name)}();
+    }
 
-	/**
-	 * __set 
-	 * 
-	 * @param mixed $name 
-	 * @param mixed $value 
-	 * @access public
-	 * @return void
-	 */
-	public function __set($name, $value)
-	{
-		return $this->{'set' . ucfirst($name)}($value);
-	}
+    /**
+     * __set 
+     * 
+     * @param mixed $name 
+     * @param mixed $value 
+     * @access public
+     * @return void
+     */
+    public function __set($name, $value)
+    {
+        return $this->{'set' . ucfirst($name)}($value);
+    }
 
     /**
      * dispatch 

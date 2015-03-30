@@ -23,13 +23,13 @@ abstract class AbstractParser implements ParserInterface
     const DEFAULT_SIZE_KEY    = 'size';
     const DEFAULT_OFFSET_KEY  = 'offset';
 
-	/**
-	 * queryComponentKeys 
-	 * 
-	 * @var mixed
-	 * @access private
-	 */
-	private $queryComponentKeys;
+    /**
+     * queryComponentKeys 
+     * 
+     * @var mixed
+     * @access private
+     */
+    private $queryComponentKeys;
 
     /**
      * persister 
@@ -39,39 +39,39 @@ abstract class AbstractParser implements ParserInterface
      */
     private $persister;
 
-	/**
-	 * __construct 
-	 * 
-	 * @param array $keys 
-	 * @access public
-	 * @return void
-	 */
-	public function __construct(array $keys = array(), Persister $persister = null)
-	{
-		if(empty($keys)) {
-			$keys = array(
+    /**
+     * __construct 
+     * 
+     * @param array $keys 
+     * @access public
+     * @return void
+     */
+    public function __construct(array $keys = array(), Persister $persister = null)
+    {
+        if(empty($keys)) {
+            $keys = array(
                     self::DEFAULT_QUERY_KEY => 'condition', 
                     self::DEFAULT_SORT_KEY => 'order', 
                     self::DEFAULT_SIZE_KEY => 'size', 
                     self::DEFAULT_OFFSET_KEY => 'offset'
                 );
-		}
-		$this->queryComponentKeys = $keys; 
+        }
+        $this->queryComponentKeys = $keys; 
 
         $this->persister = $persister;
-	}
+    }
 
-	/**
-	 * parse 
-	 * 
-	 * @param mixed $query 
-	 * @access public
-	 * @return void
-	 */
-	public function parse($query)
-	{
-		$queries = array();
-		parse_str($query, $queries);
+    /**
+     * parse 
+     * 
+     * @param mixed $query 
+     * @access public
+     * @return void
+     */
+    public function parse($query)
+    {
+        $queries = array();
+        parse_str($query, $queries);
 
         return new Query($this->parseHttpQueryComponents($queries), $this->getPersister());
     }
@@ -85,26 +85,26 @@ abstract class AbstractParser implements ParserInterface
      */
     public function parseHttpQueryComponents(array $queryComponents = array())
     {
-		$statement = new Statement();
+        $statement = new Statement();
 
         foreach($queryComponents as $key => $part) {
             $clause = $this->getClauseForHttpQueryKey($key);
             $statement->setClause($clause, $this->parseClause($part, $clause));
         }
 
-		return $statement;
-	}
+        return $statement;
+    }
 
-	/**
-	 * parseClause 
-	 * 
-	 * @param mixed $query 
-	 * @param mixed $part 
-	 * @abstract
-	 * @access public
-	 * @return void
-	 */
-	abstract public function parseClause($query, $part);
+    /**
+     * parseClause 
+     * 
+     * @param mixed $query 
+     * @param mixed $part 
+     * @abstract
+     * @access public
+     * @return void
+     */
+    abstract public function parseClause($query, $part);
 
     public function guessQueryKeyForClause($key)
     {
@@ -121,10 +121,10 @@ abstract class AbstractParser implements ParserInterface
      * @access public
      * @return void
      */
-	public function isSupportedHttpQueryKey($key)
-	{
-		return isset($this->queryComponentKeys[$key]);
-	}
+    public function isSupportedHttpQueryKey($key)
+    {
+        return isset($this->queryComponentKeys[$key]);
+    }
 
     /**
      * removeHttpQueryKey 
@@ -133,10 +133,10 @@ abstract class AbstractParser implements ParserInterface
      * @access public
      * @return void
      */
-	public function removeHttpQueryKey($key)
-	{
-		unset($this->queryComponentKeys[$key]);
-	}
+    public function removeHttpQueryKey($key)
+    {
+        unset($this->queryComponentKeys[$key]);
+    }
 
     /**
      * getClauseForHttpQueryKey 
@@ -145,10 +145,10 @@ abstract class AbstractParser implements ParserInterface
      * @access public
      * @return void
      */
-	public function getClauseForHttpQueryKey($key)
-	{
-		return $this->queryComponentKeys[$key];
-	}
+    public function getClauseForHttpQueryKey($key)
+    {
+        return $this->queryComponentKeys[$key];
+    }
 
     /**
      * setClauseForHttpQueryKey 
@@ -158,10 +158,10 @@ abstract class AbstractParser implements ParserInterface
      * @access public
      * @return void
      */
-	public function setClauseForHttpQueryKey($key, $clause)
-	{
-		$this->queryComponentKeys[$key] = $clause;
-	}
+    public function setClauseForHttpQueryKey($key, $clause)
+    {
+        $this->queryComponentKeys[$key] = $clause;
+    }
     
     public function getPersister()
     {

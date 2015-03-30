@@ -49,16 +49,16 @@ class OrderClause extends AbstractTerm implements Clause, MultiExpressionPart
      * @access public
      * @return void
      */
-	public function addExpression(Expression $expr)
-	{
-		if(!$expr instanceof OrderExpression) {
-			throw new \InvalidArgumentException('OrderClause only accept OrderExpression as its term.');
-		}
+    public function addExpression(Expression $expr)
+    {
+        if(!$expr instanceof OrderExpression) {
+            throw new \InvalidArgumentException('OrderClause only accept OrderExpression as its term.');
+        }
 
         // internal Expression has to be an unique by field 
         $this->expressions[$expr->getField()->getName()] = $expr;
 
-		return $this;
-	}
+        return $this;
+    }
 }
 

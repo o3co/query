@@ -14,28 +14,28 @@ namespace O3Co\Query\Query\Term;
  */
 abstract class AbstractFieldDeclaredExpression extends AbstractTerm implements FieldDeclaredExpression 
 {
-	/**
-	 * field 
-	 * 
-	 * @var mixed
-	 * @access protected
-	 */
-	protected $field;
+    /**
+     * field 
+     * 
+     * @var mixed
+     * @access protected
+     */
+    protected $field;
 
-	/**
-	 * __construct 
-	 * 
-	 * @param mixed $field 
-	 * @access public
-	 * @return void
-	 */
-	public function __construct($field)
-	{
+    /**
+     * __construct 
+     * 
+     * @param mixed $field 
+     * @access public
+     * @return void
+     */
+    public function __construct($field)
+    {
         if(is_string($field)) {
             $field = new FieldIdentifier($field);
         }
-		$this->field = $field;
-	}
+        $this->field = $field;
+    }
     
     /**
      * getField 

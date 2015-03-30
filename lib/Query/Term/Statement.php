@@ -14,70 +14,70 @@ use O3Co\Query\Query\Term;
  */
 class Statement extends AbstractTerm
 {
-	/**
-	 * clauses 
-	 * 
-	 * @var array
-	 * @access private
-	 */
-	private $clauses = array();
+    /**
+     * clauses 
+     * 
+     * @var array
+     * @access private
+     */
+    private $clauses = array();
 
-	/**
-	 * hasClause 
-	 * 
-	 * @param mixed $clause 
-	 * @access public
-	 * @return void
-	 */
-	public function hasClause($clause)
-	{
-		return isset($this->clauses[$clause]);
-	}
+    /**
+     * hasClause 
+     * 
+     * @param mixed $clause 
+     * @access public
+     * @return void
+     */
+    public function hasClause($clause)
+    {
+        return isset($this->clauses[$clause]);
+    }
 
-	/**
-	 * getClause 
-	 * 
-	 * @param mixed $clause 
-	 * @access public
-	 * @return void
-	 */
-	public function getClause($clause)
-	{
-		if(!isset($this->clauses[$clause])) {
-			throw new \RuntimeException(sprintf('Clause "%s" is not declared in Statement.', $clause));
-		}
-		return $this->clauses[$clause];
-	}
+    /**
+     * getClause 
+     * 
+     * @param mixed $clause 
+     * @access public
+     * @return void
+     */
+    public function getClause($clause)
+    {
+        if(!isset($this->clauses[$clause])) {
+            throw new \RuntimeException(sprintf('Clause "%s" is not declared in Statement.', $clause));
+        }
+        return $this->clauses[$clause];
+    }
 
-	/**
-	 * addClause 
-	 * 
-	 * @param Clause $clause 
-	 * @access public
-	 * @return void
-	 */
-	public function addClause(Clause $clause)
-	{
-		$classname = array_pop(explode('\\', get_class($clause)));
-		$this->clauses[$classname] = $clause;
+    /**
+     * addClause 
+     * 
+     * @param Clause $clause 
+     * @access public
+     * @return void
+     */
+    public function addClause(Clause $clause)
+    {
+        $classname = array_pop(explode('\\', get_class($clause)));
+        $this->clauses[$classname] = $clause;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * setClause 
-	 * 
-	 * @param mixed $alias 
-	 * @param Clause $clause 
-	 * @access public
-	 * @return void
-	 */
-	public function setClause($alias, Clause $clause)
-	{
-		$this->clauses[$alias] = $clause;
+    /**
+     * setClause 
+     * 
+     * @param mixed $alias 
+     * @param Clause $clause 
+     * @access public
+     * @return void
+     */
+    public function setClause($alias, Clause $clause)
+    {
+        $this->clauses[$alias] = $clause;
 
-		return $this;
-	}
+        return $this;
+    }
     
     /**
      * getClauses 
@@ -101,9 +101,9 @@ class Statement extends AbstractTerm
     {
         $this->clauses = array();
 
-		foreach($clauses as $name => $clause) {
-			$this->setClause($name, $clause);
-		}
+        foreach($clauses as $name => $clause) {
+            $this->setClause($name, $clause);
+        }
         return $this;
     }
 }

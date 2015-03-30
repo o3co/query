@@ -12,32 +12,32 @@ namespace O3Co\Query\Query\Term;
  */
 class LogicalExpression extends CompositeExpression implements ConditionalExpression
 {
-	const TYPE_AND  = 0b0000000000000001;
-	const TYPE_OR   = 0b0000000000000010;
-	const TYPE_NOT  = 0b0000000000000100;
+    const TYPE_AND  = 0b0000000000000001;
+    const TYPE_OR   = 0b0000000000000010;
+    const TYPE_NOT  = 0b0000000000000100;
 
-	/**
-	 * type 
-	 * 
-	 * @var mixed
-	 * @access private
-	 */
-	private $type;
+    /**
+     * type 
+     * 
+     * @var mixed
+     * @access private
+     */
+    private $type;
 
-	/**
-	 * __construct 
-	 * 
-	 * @param array $terms 
-	 * @param mixed $type 
-	 * @access public
-	 * @return void
-	 */
-	public function __construct(array $terms = array(), $type = self::TYPE_AND)
-	{
-		parent::__construct($terms);
+    /**
+     * __construct 
+     * 
+     * @param array $terms 
+     * @param mixed $type 
+     * @access public
+     * @return void
+     */
+    public function __construct(array $terms = array(), $type = self::TYPE_AND)
+    {
+        parent::__construct($terms);
 
         $this->type = $type;
-	}
+    }
     
     /**
      * getType 
@@ -63,16 +63,16 @@ class LogicalExpression extends CompositeExpression implements ConditionalExpres
         return $this;
     }
 
-	/**
-	 * isType 
-	 * 
-	 * @param mixed $type 
-	 * @access public
-	 * @return void
-	 */
-	public function isType($type)
-	{
-		return $this->type === $type;
-	}
+    /**
+     * isType 
+     * 
+     * @param mixed $type 
+     * @access public
+     * @return void
+     */
+    public function isType($type)
+    {
+        return $this->type === $type;
+    }
 }
 

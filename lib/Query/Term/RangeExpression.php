@@ -14,52 +14,52 @@ namespace O3Co\Query\Query\Term;
  */
 class RangeExpression extends AbstractFieldDeclaredExpression implements ConditionalExpression
 {
-	/**
-	 * minComparison 
-	 * 
-	 * @var mixed
-	 * @access private
-	 */
-	private $minComparison;
+    /**
+     * minComparison 
+     * 
+     * @var mixed
+     * @access private
+     */
+    private $minComparison;
 
-	/**
-	 * maxComparison 
-	 * 
-	 * @var mixed
-	 * @access private
-	 */
-	private $maxComparison;
+    /**
+     * maxComparison 
+     * 
+     * @var mixed
+     * @access private
+     */
+    private $maxComparison;
 
-	/**
-	 * __construct 
-	 * 
-	 * @param mixed $field 
-	 * @param ComparisonExpression $minComparison 
-	 * @param ComparisonExpression $maxComparison 
-	 * @access public
-	 * @return void
-	 */
-	public function __construct($field, ComparisonExpression $minComparison = null, ComparisonExpression $maxComparison = null)
-	{
-		parent::__construct($field);
+    /**
+     * __construct 
+     * 
+     * @param mixed $field 
+     * @param ComparisonExpression $minComparison 
+     * @param ComparisonExpression $maxComparison 
+     * @access public
+     * @return void
+     */
+    public function __construct($field, ComparisonExpression $minComparison = null, ComparisonExpression $maxComparison = null)
+    {
+        parent::__construct($field);
 
-		if(!$minComparison && !$maxComparison) {
-			throw new \Exception('Both min and max cannot be any.');
-		} else if( (!$minComparison && ($maxComparison->getValue()->isNull))
-			|| (!$maxComparison && ($minComparison->getValue()->isNull())) ) 
-		{
-			throw new \Exception('Both min and max cannot be any.');
-		}
-		
-		if(!$minComparison) {
-			$minComparison = new Term\ComparisonExpression($field, null, Term\ComparisonExpression::BIT_VALUE_ANY | Term\ComparisonExpression::EQ );
-		} else if(!$maxComparison) {
-			$maxComparison = new Term\ComparisonExpression($field, null, Term\ComparisonExpression::BIT_VALUE_ANY | Term\ComparisonExpression::EQ );
-		}
+        if(!$minComparison && !$maxComparison) {
+            throw new \Exception('Both min and max cannot be any.');
+        } else if( (!$minComparison && ($maxComparison->getValue()->isNull))
+            || (!$maxComparison && ($minComparison->getValue()->isNull())) ) 
+        {
+            throw new \Exception('Both min and max cannot be any.');
+        }
+        
+        if(!$minComparison) {
+            $minComparison = new Term\ComparisonExpression($field, null, Term\ComparisonExpression::BIT_VALUE_ANY | Term\ComparisonExpression::EQ );
+        } else if(!$maxComparison) {
+            $maxComparison = new Term\ComparisonExpression($field, null, Term\ComparisonExpression::BIT_VALUE_ANY | Term\ComparisonExpression::EQ );
+        }
 
-		$this->setMinComparison($minComparison);
-		$this->setMaxComparison($maxComparison);
-	}
+        $this->setMinComparison($minComparison);
+        $this->setMaxComparison($maxComparison);
+    }
     
     /**
      * getMinComparison 
@@ -81,11 +81,11 @@ class RangeExpression extends AbstractFieldDeclaredExpression implements Conditi
      */
     public function setMinComparison(ComparisonExpression $minComparison)
     {
-		if($minComparison->getField() != $this->getField()) {
-			throw new \InvalidArgumentException('Field of Minimum Comparison is not equal to field of Range.');
-		} else if(($minComparison->getValue()->isNull()) &&  !(ComparisonExpression::GT & $minComparison->getOperator())) {
-			throw new \InvalidArgumentException('Range.min has to be an Any or a Greater Comparison.');
-		}
+        if($minComparison->getField() != $this->getField()) {
+            throw new \InvalidArgumentException('Field of Minimum Comparison is not equal to field of Range.');
+        } else if(($minComparison->getValue()->isNull()) &&  !(ComparisonExpression::GT & $minComparison->getOperator())) {
+            throw new \InvalidArgumentException('Range.min has to be an Any or a Greater Comparison.');
+        }
 
         $this->minComparison = $minComparison;
         return $this;
@@ -111,11 +111,11 @@ class RangeExpression extends AbstractFieldDeclaredExpression implements Conditi
      */
     public function setMaxComparison(ComparisonExpression $maxComparison)
     {
-		if($maxComparison->getField() != $this->getField()) {
-			throw new \InvalidArgumentException('Field of Minimum Comparison is not equal to field of Range.');
-		} else if($maxComparison->getValue()->isNull() && !(ComparisonExpression::LT & $maxComparison->getOperator())) {
-			throw new \InvalidArgumentException('Range.max has to be an Any or a Less Comparison.');
-		}
+        if($maxComparison->getField() != $this->getField()) {
+            throw new \InvalidArgumentException('Field of Minimum Comparison is not equal to field of Range.');
+        } else if($maxComparison->getValue()->isNull() && !(ComparisonExpression::LT & $maxComparison->getOperator())) {
+            throw new \InvalidArgumentException('Range.max has to be an Any or a Less Comparison.');
+        }
 
         $this->maxComparison = $maxComparison;
         return $this;

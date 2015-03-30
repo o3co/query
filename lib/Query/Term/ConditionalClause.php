@@ -15,21 +15,21 @@ use O3Co\Query\Query\Term\ConditionalExpression;
  */
 class ConditionalClause extends AbstractClause 
 {
-	/**
-	 * add 
-	 * 
-	 * @param Term $term 
-	 * @access public
-	 * @return void
-	 */
-	public function add(Term $term)
-	{
-		if(!$term instanceof ConditionalExpression) {
-			throw new \RuntimeException('ConditionalClause only accept ConditionalExpression for its term');
-		}
+    /**
+     * add 
+     * 
+     * @param Term $term 
+     * @access public
+     * @return void
+     */
+    public function add(Term $term)
+    {
+        if(!$term instanceof ConditionalExpression) {
+            throw new \RuntimeException('ConditionalClause only accept ConditionalExpression for its term');
+        }
 
-		return parent::add($term);
-	}
+        return parent::add($term);
+    }
 
     /**
      * getFirstExpression 

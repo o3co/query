@@ -3,63 +3,63 @@ namespace O3Co\Query\Query\Term;
 
 abstract class AbstractComparisonExpression extends AbstractFieldDeclaredExpression implements ConditionalExpression 
 {
-	const BIT_ALL        = 0b1111111111111111;
-	const BIT_NOT        = 0b1000000000000000;
+    const BIT_ALL        = 0b1111111111111111;
+    const BIT_NOT        = 0b1000000000000000;
 
-	/**
-	 * operator 
-	 * 
-	 * @var mixed
-	 * @access protected
-	 */
-	protected $operator;
+    /**
+     * operator 
+     * 
+     * @var mixed
+     * @access protected
+     */
+    protected $operator;
 
-	/**
-	 * field 
-	 * 
-	 * @var mixed
-	 * @access protected
-	 */
-	protected $field;
+    /**
+     * field 
+     * 
+     * @var mixed
+     * @access protected
+     */
+    protected $field;
 
-	/**
-	 * value 
-	 * 
-	 * @var mixed
-	 * @access protected
-	 */
-	protected $value;
+    /**
+     * value 
+     * 
+     * @var mixed
+     * @access protected
+     */
+    protected $value;
 
-	/**
-	 * __construct 
-	 * 
-	 * @param mixed $field 
-	 * @param mixed $value 
-	 * @param mixed $operator 
-	 * @access public
-	 * @return void
-	 */
-	public function __construct($field, ValueIdentifier $value, $operator)
-	{
-		parent::__construct($field);
-		$this->value = $value;
-		$this->operator = 0;
-		
-		$this->setOperator($operator);
-	}
+    /**
+     * __construct 
+     * 
+     * @param mixed $field 
+     * @param mixed $value 
+     * @param mixed $operator 
+     * @access public
+     * @return void
+     */
+    public function __construct($field, ValueIdentifier $value, $operator)
+    {
+        parent::__construct($field);
+        $this->value = $value;
+        $this->operator = 0;
+        
+        $this->setOperator($operator);
+    }
 
-	/**
-	 * not 
-	 * 
-	 * @param mixed $op 
-	 * @static
-	 * @access public
-	 * @return void
-	 */
-	public function not()
-	{
-		$this->operator = static::TYPE_NOT ^ $this->operator;
-	}
+    /**
+     * not 
+     * 
+     * @param mixed $op 
+     * @static
+     * @access public
+     * @return void
+     */
+    public function not()
+    {
+        $this->operator = static::TYPE_NOT ^ $this->operator;
+    }
 
     /**
      * getValue 

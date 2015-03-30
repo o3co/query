@@ -13,23 +13,23 @@ namespace O3Co\Query;
  */
 interface Parser
 {
-	/**
-	 * parse
-	 * 
-	 * @param mixed $query 
-	 * @access public
-	 * @return void
-	 */
-	function parse($query);
+    /**
+     * parse
+     * 
+     * @param mixed $query 
+     * @access public
+     * @return void
+     */
+    function parse($query);
 
-	/**
-	 * parseClause 
-	 * 
-	 * @param mixed $query 
-	 * @access public
-	 * @return void
-	 */
-	function parseClause($query, $part);
+    /**
+     * parseClause 
+     * 
+     * @param mixed $query 
+     * @access public
+     * @return void
+     */
+    function parseClause($query, $part);
 
     /**
      * parseConditionalExpression 

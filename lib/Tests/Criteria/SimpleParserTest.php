@@ -6,19 +6,19 @@ use O3Co\Query\Query\Term;
 
 class SimpleCriteriaParserTest extends \PHPUnit_Framework_TestCase 
 {
-	public function testParse()
-	{
-		$parser = new SimpleParser();
+    public function testParse()
+    {
+        $parser = new SimpleParser();
 
         // 
-		$query = $parser->parse(
+        $query = $parser->parse(
                 array('foo' => 'Foo', 'bar' => array('Bar', 'BAR')), 
                 array('foo' => 'asc', 'bar' => 'desc'),
                 10,
                 1
             );
 
-		$this->assertInstanceof('O3Co\Query\Query', $query);
+        $this->assertInstanceof('O3Co\Query\Query', $query);
         $statement = $query->getStatement();
 
         $rootExpr = $statement->getClause('condition')->getFirstExpression();
@@ -42,6 +42,6 @@ class SimpleCriteriaParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(10, $query->getStatement()->getClause('limit')->getValue()->getValue());
         $this->assertEquals(1, $query->getStatement()->getClause('offset')->getValue()->getValue());
-	}
+    }
 }
 

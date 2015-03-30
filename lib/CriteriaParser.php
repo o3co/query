@@ -11,14 +11,14 @@ namespace O3Co\Query;
  */
 interface CriteriaParser 
 {
-	/**
-	 * parse
-	 *   parse fields criteria and generate statement
+    /**
+     * parse
+     *   parse fields criteria and generate statement
      *   
-	 * @param array $criteria 
-	 * @access public
-	 * @return Statement 
-	 */
-	function parse(array $criteria);
+     * @param array $criteria 
+     * @access public
+     * @return Statement 
+     */
+    function parse(array $criteria);
 }
 

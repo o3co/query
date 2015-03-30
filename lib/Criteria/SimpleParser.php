@@ -28,7 +28,7 @@ class SimpleParser implements CriteriaParser
      * @var mixed
      * @access private
      */
-	private $fqlParser;
+    private $fqlParser;
 
     /**
      * exprBuilder 
@@ -36,7 +36,7 @@ class SimpleParser implements CriteriaParser
      * @var mixed
      * @access private
      */
-	private $exprBuilder;
+    private $exprBuilder;
 
     /**
      * persister 
@@ -53,17 +53,17 @@ class SimpleParser implements CriteriaParser
      * @access public
      * @return void
      */
-	public function __construct(FqlParser $fqlParser = null, Persister $persister = null, ExpressionBuilder $exprBuilder = null)
-	{
-		if(!$exprBuilder) {
-			// use ExpressionBuilder 
-			$exprBuilder = new ExpressionBuilder();
-		}
-		$this->exprBuilder = $exprBuilder;
+    public function __construct(FqlParser $fqlParser = null, Persister $persister = null, ExpressionBuilder $exprBuilder = null)
+    {
+        if(!$exprBuilder) {
+            // use ExpressionBuilder 
+            $exprBuilder = new ExpressionBuilder();
+        }
+        $this->exprBuilder = $exprBuilder;
 
         $this->fqlParser = $fqlParser;
         $this->persister = $persister;
-	}
+    }
 
     /**
      * parse 
@@ -73,12 +73,12 @@ class SimpleParser implements CriteriaParser
      * @access public
      * @return void
      */
-	public function parse(array $criteria, array $orderBy = array(), $limit = null, $offset = null)
-	{
-		$statement = new Term\Statement();
+    public function parse(array $criteria, array $orderBy = array(), $limit = null, $offset = null)
+    {
+        $statement = new Term\Statement();
 
         if(!empty($criteria)) {
-    		$statement->setClause('condition', $this->parseCriteria($criteria));
+            $statement->setClause('condition', $this->parseCriteria($criteria));
         }
 
         if(!empty($orderBy)) 
@@ -93,25 +93,25 @@ class SimpleParser implements CriteriaParser
 
     public function parseCriteria(array $criteria)
     {
-		$condExprs = array();
-		foreach($criteria as $field => $value) {
-		    if(is_array($value)) {
-		    	$condExprs[] = $this->parseOrXValues($field, $value);
-		    } else {
-		    	$condExprs[] = $this->parseFieldValue($field, $value);
-		    }
-		}
+        $condExprs = array();
+        foreach($criteria as $field => $value) {
+            if(is_array($value)) {
+                $condExprs[] = $this->parseOrXValues($field, $value);
+            } else {
+                $condExprs[] = $this->parseFieldValue($field, $value);
+            }
+        }
 
-		// Join all field expressions by AND
+        // Join all field expressions by AND
         $condition = null;
         if(1 < count($condExprs)) {
-		    $condition = $this->expr()->andX($condExprs);
+            $condition = $this->expr()->andX($condExprs);
         } else if(1 == count($condExprs)) {
             $condition = array_shift($condExprs);
         } 
 
-    	return new Term\ConditionalClause(array($condition));
-	}
+        return new Term\ConditionalClause(array($condition));
+    }
 
     public function parseOrderBy($orders)
     {
@@ -148,61 +148,61 @@ class SimpleParser implements CriteriaParser
      * @access protected
      * @return void
      */
-	protected function parseOrXValues($field, $values)
-	{
-		$exprs = array();
-		foreach($values as $value) {
-			$exprs[] = $this->parseFieldValue($field, $value);
-		}
+    protected function parseOrXValues($field, $values)
+    {
+        $exprs = array();
+        foreach($values as $value) {
+            $exprs[] = $this->parseFieldValue($field, $value);
+        }
 
-		return $this->expr()->orX($exprs);
-	}
+        return $this->expr()->orX($exprs);
+    }
 
-	protected function parseAndXValues($field, $values)
-	{
-		$exprs = array();
-		foreach($values as $value) {
-			$exprs[] = $this->parseFieldValue($field, $value);
-		}
+    protected function parseAndXValues($field, $values)
+    {
+        $exprs = array();
+        foreach($values as $value) {
+            $exprs[] = $this->parseFieldValue($field, $value);
+        }
 
-		return $this->expr()->andX($exprs);
-	}
+        return $this->expr()->andX($exprs);
+    }
 
-	protected function parseFieldValue($field, $value)
-	{
-		if(is_array($value)) {
-			$exprs = array();
-			foreach($values as $value) {
-				if(is_array($value)) {
-					throw new \InvalidArgumentException(sprintf('CriteriaParser only support 1 depth of array for field "%s"', $field));
-				} else {
-					$exprs[] = $this->doParseFieldString($field, $value);
-				}
-			}
-			
-			// Join internal expressions by "AND"
-			return $this->expr()->andX($exprs);
-		} else if(is_string($value)) {
-			return $this->doParseFieldString($field, $value);
-		} else {
-			return $this->expr()->eq($field, $value);
-		}
-	}
+    protected function parseFieldValue($field, $value)
+    {
+        if(is_array($value)) {
+            $exprs = array();
+            foreach($values as $value) {
+                if(is_array($value)) {
+                    throw new \InvalidArgumentException(sprintf('CriteriaParser only support 1 depth of array for field "%s"', $field));
+                } else {
+                    $exprs[] = $this->doParseFieldString($field, $value);
+                }
+            }
+            
+            // Join internal expressions by "AND"
+            return $this->expr()->andX($exprs);
+        } else if(is_string($value)) {
+            return $this->doParseFieldString($field, $value);
+        } else {
+            return $this->expr()->eq($field, $value);
+        }
+    }
 
-	protected function doParseFieldString($field, $value)
-	{
-		// 
-		$fqlParser = $this->getFqlParser();
-		if($fqlParser) {
-			// Convert fqlQuery to Query\Part
+    protected function doParseFieldString($field, $value)
+    {
+        // 
+        $fqlParser = $this->getFqlParser();
+        if($fqlParser) {
+            // Convert fqlQuery to Query\Part
             try {
-			    return $fqlParser->parseFql($field, $value);
+                return $fqlParser->parseFql($field, $value);
             } catch(ParserException $ex) {
                 // Failed on parse, thus use the value as string value
             }
-		}
-		return $this->expr()->eq($field, $value);
-	}
+        }
+        return $this->expr()->eq($field, $value);
+    }
 
     public function getFqlParser()
     {
@@ -215,16 +215,16 @@ class SimpleParser implements CriteriaParser
         return $this;
     }
 
-	/**
-	 * expr 
-	 *   Get ExpressionBuidler 
-	 * @access public
-	 * @return void
-	 */
-	public function expr()
-	{
-		return $this->exprBuilder;
-	}
+    /**
+     * expr 
+     *   Get ExpressionBuidler 
+     * @access public
+     * @return void
+     */
+    public function expr()
+    {
+        return $this->exprBuilder;
+    }
     
     /**
      * getPersister 

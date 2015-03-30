@@ -11,12 +11,12 @@ namespace O3Co\Query\Extension\Http;
  */
 interface Client
 {
-	/**
-	 * lookup 
-	 * 
-	 * @param array $queryParts http query components. Such as 'q' for query, 'size' for fetch size. etc.
-	 * @access public
-	 * @return void
-	 */
-	function lookup(array $queryParts = array());
+    /**
+     * lookup 
+     * 
+     * @param array $queryParts http query components. Such as 'q' for query, 'size' for fetch size. etc.
+     * @access public
+     * @return void
+     */
+    function lookup(array $queryParts = array());
 }

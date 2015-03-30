@@ -11,11 +11,11 @@ namespace O3Co\Query\Query\Term;
  */
 interface FieldDeclaredExpression 
 {
-	/**
-	 * getField 
-	 * 
-	 * @access public
-	 * @return void
-	 */
-	function getField();
+    /**
+     * getField 
+     * 
+     * @access public
+     * @return void
+     */
+    function getField();
 }

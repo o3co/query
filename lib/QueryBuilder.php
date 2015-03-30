@@ -11,30 +11,30 @@ namespace O3Co\Query;
  */
 interface QueryBuilder 
 {
-	/**
-	 * getQuery 
-	 *   Get Built Query
-	 * @access public
-	 * @return Query
-	 */
-	public function getQuery();
+    /**
+     * getQuery 
+     *   Get Built Query
+     * @access public
+     * @return Query
+     */
+    public function getQuery();
 
-	/**
-	 * expr 
-	 * 
-	 * @access public
-	 * @return ExpressionBuilder 
-	 */
-	public function expr();
+    /**
+     * expr 
+     * 
+     * @access public
+     * @return ExpressionBuilder 
+     */
+    public function expr();
 
-	/**
-	 * add 
-	 * 
-	 * @param mixed $expr 
-	 * @access public
-	 * @return void
-	 */
-	public function add($expr);
+    /**
+     * add 
+     * 
+     * @param mixed $expr 
+     * @access public
+     * @return void
+     */
+    public function add($expr);
 
     /**
      * setMaxResults 

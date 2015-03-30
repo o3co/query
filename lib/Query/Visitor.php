@@ -11,12 +11,12 @@ namespace O3Co\Query\Query;
  */
 interface Visitor
 {
-	/**
-	 * visit 
-	 *   visit Query Term 
-	 * @param Term $term 
-	 * @access public
-	 * @return void
-	 */
-	function visit(Term $term);
+    /**
+     * visit 
+     *   visit Query Term 
+     * @param Term $term 
+     * @access public
+     * @return void
+     */
+    function visit(Term $term);
 }

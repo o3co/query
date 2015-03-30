@@ -25,7 +25,7 @@ class SimpleQueryBuilder implements QueryBuilder
      * @var mixed
      * @access private
      */
-	private $expressionBuilder;
+    private $expressionBuilder;
 
     /**
      * statement 
@@ -33,7 +33,7 @@ class SimpleQueryBuilder implements QueryBuilder
      * @var mixed
      * @access private
      */
-	private $statement;
+    private $statement;
 
     /**
      * persister 
@@ -52,18 +52,18 @@ class SimpleQueryBuilder implements QueryBuilder
      * @access public
      * @return void
      */
-	public function __construct(Persister $persister = null, ExpressionBuilder $exprBuilder = null, Term\Statement $statement = null)
-	{
+    public function __construct(Persister $persister = null, ExpressionBuilder $exprBuilder = null, Term\Statement $statement = null)
+    {
         $this->persister = $persister;
 
         if(!$exprBuilder)
             $exprBuilder = new ExpressionBuilder();
-		$this->expressionBuilder = $exprBuilder;
+        $this->expressionBuilder = $exprBuilder;
 
         if(!$statement) 
-    		$statement = new Term\Statement();
+            $statement = new Term\Statement();
         $this->statement = $statement;
-	}
+    }
 
     /**
      * expr 
@@ -71,10 +71,10 @@ class SimpleQueryBuilder implements QueryBuilder
      * @access public
      * @return void
      */
-	public function expr()
-	{
-		return $this->getExpressionBuilder();
-	}
+    public function expr()
+    {
+        return $this->getExpressionBuilder();
+    }
 
     /**
      * add 
@@ -84,34 +84,34 @@ class SimpleQueryBuilder implements QueryBuilder
      * @access public
      * @return void
      */
-	public function add($part, $clause = null)
-	{
-		if(!$clause) {
-			throw new \InvalidArgumentException('Clause has to be specified to add.');
-		}
+    public function add($part, $clause = null)
+    {
+        if(!$clause) {
+            throw new \InvalidArgumentException('Clause has to be specified to add.');
+        }
 
-		if(!$this->getStatement()->hasClause($clause)) {
-			switch($clause) {
-			case 'condition':
-				$this->getStatement()->setClause($clause, new Term\ConditionalClause());
-				break;
-			case 'order':
-				$this->getStatement()->setClause($clause, new Term\OrderClause());
-				break;
-			default:
-				throw new \InvalidArgumentException(sprintf('Clasue "%s" is unknown type of Clause. Please init clause with setClause first.', $clause));
-				break;
-			}
-		}
+        if(!$this->getStatement()->hasClause($clause)) {
+            switch($clause) {
+            case 'condition':
+                $this->getStatement()->setClause($clause, new Term\ConditionalClause());
+                break;
+            case 'order':
+                $this->getStatement()->setClause($clause, new Term\OrderClause());
+                break;
+            default:
+                throw new \InvalidArgumentException(sprintf('Clasue "%s" is unknown type of Clause. Please init clause with setClause first.', $clause));
+                break;
+            }
+        }
             
         $clause = $this->getStatement()->getClause($clause);
         if(!$clause instanceof Term\MultiExpressionPart) {
             throw new \RuntimeException('QueryBuilder::add only support a Clause as a MultiExpressionPart.');
         }
 
-		$clause->addExpression($part);
-		return $this;
-	}
+        $clause->addExpression($part);
+        return $this;
+    }
 
     public function addWhere($expr)
     {
@@ -191,7 +191,7 @@ class SimpleQueryBuilder implements QueryBuilder
     public function getStatement()
     {
         return $this->statement;
-	}
+    }
     
     /**
      * getPersister 
