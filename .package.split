@@ -30,7 +30,8 @@ git checkout refs/remotes/core/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter lib ${TARGET_BRANCH} 
 git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
 if [ $? -ne 0 ]; then
-    echo Failed to merge. 
+    echo -e "\e[31mFailed to merge package 'core'.\e[m\n"
+    echo please execute "git reset --hard refs/original/refs/heads/${TARGET_BRANCH}"
     exit 1
 fi
 git push core HEAD:${TARGET_BRANCH}
@@ -44,7 +45,10 @@ git checkout refs/remotes/extension.http/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter extensions/Http ${TARGET_BRANCH} 
 git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
 if [ $? -ne 0 ]; then
-    echo Failed to merge. 
+    echo -e "\e[31mFailed to merge package 'extension.http'.\e[m\n"
+    echo "please execute following command to restore.\n"
+    echo "\tgit checkout ${TARGET_BRANCH}\n"
+    echo "\tgit reset --hard refs/original/refs/heads/${TARGET_BRANCH}\n"
     exit 1
 fi
 git push extension.http HEAD:${TARGET_BRANCH}
@@ -57,7 +61,10 @@ git checkout refs/remotes/extension.cql/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter extensions/CQL ${TARGET_BRANCH} 
 git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
 if [ $? -ne 0 ]; then
-    echo Failed to merge. 
+    echo -e "\e[31mFailed to merge package 'extensino.cql'.\e[m\n"
+    echo "please execute following command to restore.\n"
+    echo "\tgit checkout ${TARGET_BRANCH}\n"
+    echo "\tgit reset --hard refs/original/refs/heads/${TARGET_BRANCH}\n"
     exit 1
 fi
 git push extension.cql HEAD:${TARGET_BRANCH}
@@ -70,7 +77,10 @@ git checkout refs/remotes/extension.extra/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter extensions/Extra ${TARGET_BRANCH} 
 git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
 if [ $? -ne 0 ]; then
-    echo Failed to merge. 
+    echo -e "\e[31mFailed to merge package 'extension.extra'.\e[m\n"
+    echo "please execute following command to restore.\n"
+    echo "\tgit checkout ${TARGET_BRANCH}\n"
+    echo "\tgit reset --hard refs/original/refs/heads/${TARGET_BRANCH}\n"
     exit 1
 fi
 git push extension.extra HEAD:${TARGET_BRANCH}
@@ -83,7 +93,10 @@ git checkout refs/remotes/bridge.doctrine_orm/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter bridges/DoctrineOrm ${TARGET_BRANCH} 
 git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
 if [ $? -ne 0 ]; then
-    echo Failed to merge. 
+    echo -e "\e[31mFailed to merge package 'bridge.doctrine_orm'.\e[m\n"
+    echo "please execute following command to restore.\n"
+    echo "\tgit checkout ${TARGET_BRANCH}\n"
+    echo "\tgit reset --hard refs/original/refs/heads/${TARGET_BRANCH}\n"
     exit 1
 fi
 git push bridge.doctrine_orm HEAD:${TARGET_BRANCH}
@@ -96,7 +109,10 @@ git checkout refs/remotes/adapter.doctrine/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter adapters/DoctrineExtension ${TARGET_BRANCH} 
 git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
 if [ $? -ne 0 ]; then
-    echo Failed to merge. 
+    echo -e "\e[31mFailed to merge package 'adapter.doctrine'.\e[m\n"
+    echo "please execute following command to restore.\n"
+    echo "\tgit checkout ${TARGET_BRANCH}\n"
+    echo "\tgit reset --hard refs/original/refs/heads/${TARGET_BRANCH}\n"
     exit 1
 fi
 git push adapter.doctrine HEAD:${TARGET_BRANCH}
