@@ -29,7 +29,7 @@ class TestVisitor implements OuterVisitor
      * @access public
      * @return void
      */
-    public function visit(Part $term)
+    public function visit(Expr\Part $term)
     {
         // do nothing
     }

@@ -22,7 +22,7 @@ class ConditionalClause extends AbstractClause
      * @access public
      * @return void
      */
-    public function add(Part $term)
+    public function add(Expr\Part $term)
     {
         if(!$term instanceof ConditionalExpression) {
             throw new \RuntimeException('ConditionalClause only accept ConditionalExpression for its term');

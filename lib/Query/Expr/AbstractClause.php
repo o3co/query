@@ -56,7 +56,7 @@ abstract class AbstractClause extends AbstractPart implements Clause, MultiExpre
      * @access public
      * @return void
      */
-    public function add(Part $term)
+    public function add(Expr\Part $term)
     {
         $this->terms[] = $term;
     }

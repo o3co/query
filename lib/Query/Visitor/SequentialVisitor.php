@@ -30,7 +30,7 @@ class SequentialVisitor implements Visitor
      * @access public
      * @return mixed Return the latest visitor response 
      */
-    public function visit(Part $expr)
+    public function visit(Expr\Part $expr)
     {
         $response = null;
         foreach($visitors as $visitor) {

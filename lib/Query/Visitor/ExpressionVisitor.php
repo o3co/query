@@ -33,7 +33,7 @@ abstract class ExpressionVisitor implements OuterVisitor
      * @access public
      * @return void
      */
-    public function visit(Part $expr)
+    public function visit(Expr\Part $expr)
     {
         return $expr->dispatch($this);
     }

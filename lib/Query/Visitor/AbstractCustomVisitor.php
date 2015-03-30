@@ -16,7 +16,7 @@ use O3Co\Query\Query\Expr;
  */
 abstract class AbstractCustomVisitor implements Visitor 
 {
-    public function visit(Part $term)
+    public function visit(Expr\Part $term)
     {
     }
 }
