@@ -2,6 +2,7 @@
 namespace O3Co\Query\Tests\Criteria;
 
 use O3Co\Query\Criteria\SimpleParser;
+use O3Co\Query\Query\Term;
 
 class SimpleCriteriaParserTest extends \PHPUnit_Framework_TestCase 
 {
@@ -9,7 +10,13 @@ class SimpleCriteriaParserTest extends \PHPUnit_Framework_TestCase
 	{
 		$parser = new SimpleParser();
 
-		$query = $parser->parse(array('foo' => 'Foo', 'bar' => array('Bar', 'BAR')));
+        // 
+		$query = $parser->parse(
+                array('foo' => 'Foo', 'bar' => array('Bar', 'BAR')), 
+                array('foo' => 'asc', 'bar' => 'desc'),
+                10,
+                1
+            );
 
 		$this->assertInstanceof('O3Co\Query\Query', $query);
         $statement = $query->getStatement();
@@ -27,6 +34,14 @@ class SimpleCriteriaParserTest extends \PHPUnit_Framework_TestCase
                 $this->assertInstanceof('O3Co\Query\Query\Term\LogicalExpression', $expr);
             }
         }
+
+        $this->assertCount(2, $query->getStatement()->getClause('order')->getExpressions());
+        $exprs = $query->getStatement()->getClause('order')->getExpressions();
+        $this->assertTrue($exprs['foo']->isAsc());
+        $this->assertTrue($exprs['bar']->isDesc());
+
+        $this->assertEquals(10, $query->getStatement()->getClause('limit')->getValue()->getValue());
+        $this->assertEquals(1, $query->getStatement()->getClause('offset')->getValue()->getValue());
 	}
 }
 
