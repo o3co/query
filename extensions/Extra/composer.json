@@ -10,11 +10,11 @@
 	"require" : {
 		"php" : ">=5.3.2",
 		"o3co/query-core": "~0.2",
+		"o3co/query-extension-cql": "~0.2",
 		"o3co/query-extension-http": "~0.2"
     },
 	"require-dev" : {
-		"o3co/query-core": "~0.2@dev",
-		"o3co/query-extension-http": "~0.2@dev"
+		"o3co/query-bridge-guzzlehttp": "~0.2"
 	},
     "suggest": {
         "o3co/query-bridge-guzzlehttp": "To use GuzzleHttp as Http Client",
