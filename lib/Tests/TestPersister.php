@@ -15,6 +15,8 @@ use O3Co\Query\Query;
  */
 class TestPersister extends AbstractPersister 
 {
+    public $results;
+
     /**
      * execute 
      * 
@@ -24,7 +26,7 @@ class TestPersister extends AbstractPersister
      */
     public function execute(Query $query)
     {
-        throw new \Exception('Not Impled');
+        return $this->results;
     }
 }
 
