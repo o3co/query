@@ -23,7 +23,7 @@ echo "============================================================"
 # 
 git checkout refs/remotes/core/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter lib ${TARGET_BRANCH} 
-git merge ${TARGET_BRANCH} 
+git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
 git push core HEAD:${TARGET_BRANCH}
 # reset the master
 git checkout ${TARGET_BRANCH}
@@ -33,7 +33,7 @@ git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 # Extension Http
 git checkout refs/remotes/extension.http/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter extensions/Http ${TARGET_BRANCH} 
-git merge ${TARGET_BRANCH} 
+git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
 git push extension.http HEAD:${TARGET_BRANCH}
 # reset the master
 git checkout ${TARGET_BRANCH}
@@ -42,7 +42,7 @@ git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 # Extension CQL
 git checkout refs/remotes/extension.cql/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter extensions/CQL ${TARGET_BRANCH} 
-git merge ${TARGET_BRANCH} 
+git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
 git push extension.cql HEAD:${TARGET_BRANCH}
 # reset the master
 git checkout ${TARGET_BRANCH}
@@ -51,7 +51,7 @@ git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 # Extension Extra
 git checkout refs/remotes/extension.extra/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter extensions/Extra ${TARGET_BRANCH} 
-git merge ${TARGET_BRANCH} 
+git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
 git push extension.extra HEAD:${TARGET_BRANCH}
 # reset the master
 git checkout ${TARGET_BRANCH}
@@ -60,7 +60,7 @@ git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 # Bridge DoctrineORM 
 git checkout refs/remotes/bridge.doctrine_orm/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter bridges/DoctrineOrm ${TARGET_BRANCH} 
-git merge ${TARGET_BRANCH} 
+git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
 git push bridge.doctrine_orm HEAD:${TARGET_BRANCH}
 # reset the master
 git checkout ${TARGET_BRANCH}
@@ -69,7 +69,7 @@ git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 # Adapter Doctrine 
 git checkout refs/remotes/adapter.doctrine/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter adapters/DoctrineExtension ${TARGET_BRANCH} 
-git merge ${TARGET_BRANCH} 
+git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
 git push adapter.doctrine HEAD:${TARGET_BRANCH}
 # reset the master
 git checkout ${TARGET_BRANCH}
