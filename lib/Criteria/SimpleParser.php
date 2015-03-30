@@ -45,12 +45,6 @@ class SimpleParser implements CriteriaParser
      * @access private
      */
     private $persister;
-
-    protected $fieldClauseInCriteria = array(
-            'order'  => '_order',
-            'limit'  => '_limit',
-            'offset' => '_offset',
-        );
     /**
      * __construct 
      * 
@@ -254,31 +248,6 @@ class SimpleParser implements CriteriaParser
     {
         $this->persister = $persister;
         return $this;
-    }
-
-    /**
-     * setFieldClauseInCriteria 
-     * 
-     * @param mixed $clause 
-     * @param mixed $field 
-     * @access public
-     * @return void
-     */
-    public function setFieldClauseInCriteria($clause, $field)
-    {
-        $this->fieldClauseInCriteria[$clause] = $field;
-    }
-
-    /**
-     * getFieldClauseInCriteria 
-     * 
-     * @param mixed $clause 
-     * @access public
-     * @return void
-     */
-    public function getFieldClauseInCriteria($clause)
-    {
-        return $this->fieldClauseInCriteria[$clause];
     }
 
     protected function convertToSortingType($sort)
