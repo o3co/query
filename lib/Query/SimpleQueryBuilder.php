@@ -5,7 +5,7 @@ use O3Co\Query\Query;
 use O3Co\Query\QueryBuilder;
 use O3Co\Query\Persister;
 use O3Co\Query\Query\ExpressionBuilder;
-use O3Co\Query\Query\Term;
+use O3Co\Query\Query\Part;
 
 
 /**
@@ -48,11 +48,11 @@ class SimpleQueryBuilder implements QueryBuilder
      * 
      * @param Persister $persister 
      * @param ExpressionBuilder $exprBuilder 
-     * @param Term\Statement $statement 
+     * @param Part\Statement $statement 
      * @access public
      * @return void
      */
-    public function __construct(Persister $persister = null, ExpressionBuilder $exprBuilder = null, Term\Statement $statement = null)
+    public function __construct(Persister $persister = null, ExpressionBuilder $exprBuilder = null, Part\Statement $statement = null)
     {
         $this->persister = $persister;
 
@@ -61,7 +61,7 @@ class SimpleQueryBuilder implements QueryBuilder
         $this->expressionBuilder = $exprBuilder;
 
         if(!$statement) 
-            $statement = new Term\Statement();
+            $statement = new Part\Statement();
         $this->statement = $statement;
     }
 
@@ -93,10 +93,10 @@ class SimpleQueryBuilder implements QueryBuilder
         if(!$this->getStatement()->hasClause($clause)) {
             switch($clause) {
             case 'condition':
-                $this->getStatement()->setClause($clause, new Term\ConditionalClause());
+                $this->getStatement()->setClause($clause, new Part\ConditionalClause());
                 break;
             case 'order':
-                $this->getStatement()->setClause($clause, new Term\OrderClause());
+                $this->getStatement()->setClause($clause, new Part\OrderClause());
                 break;
             default:
                 throw new \InvalidArgumentException(sprintf('Clasue "%s" is unknown type of Clause. Please init clause with setClause first.', $clause));
@@ -105,7 +105,7 @@ class SimpleQueryBuilder implements QueryBuilder
         }
             
         $clause = $this->getStatement()->getClause($clause);
-        if(!$clause instanceof Term\MultiExpressionPart) {
+        if(!$clause instanceof Part\MultiExpressionPart) {
             throw new \RuntimeException('QueryBuilder::add only support a Clause as a MultiExpressionPart.');
         }
 
@@ -139,7 +139,7 @@ class SimpleQueryBuilder implements QueryBuilder
             $this->getStatement()->removeClause('limit');
         } else {
             // 
-            $this->getStatement()->setClause('limit', new Term\LimitClause($limit));
+            $this->getStatement()->setClause('limit', new Part\LimitClause($limit));
         }
 
         return $this;
@@ -154,7 +154,7 @@ class SimpleQueryBuilder implements QueryBuilder
      */
     public function setFirstResult($offset)
     {
-        $this->getStatement()->setClause('offset', new Term\OffsetClause($offset));
+        $this->getStatement()->setClause('offset', new Part\OffsetClause($offset));
 
         return $this;
     }

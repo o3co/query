@@ -2,7 +2,7 @@
 namespace O3Co\Query\Query\Visitor;
 
 use O3Co\Query\Query\Visitor;
-use O3Co\Query\Query\Term;
+use O3Co\Query\Query\Part;
 
 /**
  * SequentialVisitor 
@@ -26,11 +26,11 @@ class SequentialVisitor implements Visitor
     /**
      * visit 
      *    
-     * @param Term $expr 
+     * @param Part $expr 
      * @access public
      * @return mixed Return the latest visitor response 
      */
-    public function visit(Term $expr)
+    public function visit(Part $expr)
     {
         $response = null;
         foreach($visitors as $visitor) {

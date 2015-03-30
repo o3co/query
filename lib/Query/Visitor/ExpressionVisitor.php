@@ -2,7 +2,7 @@
 namespace O3Co\Query\Query\Visitor;
 
 use O3Co\Query\Query\Visitor;
-use O3Co\Query\Query\Term;
+use O3Co\Query\Query\Part;
 
 /**
  * ExpressionVisitor 
@@ -29,11 +29,11 @@ abstract class ExpressionVisitor implements OuterVisitor
     /**
      * visit 
      * 
-     * @param Term $expr 
+     * @param Part $expr 
      * @access public
      * @return void
      */
-    public function visit(Term $expr)
+    public function visit(Part $expr)
     {
         return $expr->dispatch($this);
     }
@@ -41,20 +41,20 @@ abstract class ExpressionVisitor implements OuterVisitor
     /**
      * visitStatement 
      * 
-     * @param Term\Statement $statement 
+     * @param Part\Statement $statement 
      * @abstract
      * @access public
      * @return void
      */
-    abstract function visitStatement(Term\Statement $statement);
+    abstract function visitStatement(Part\Statement $statement);
 
     /**
      * visitLogicalExpression 
      * 
-     * @param Term\LogicalExpression $expr 
+     * @param Part\LogicalExpression $expr 
      * @abstract
      * @access public
      * @return void
      */
-    abstract function visitLogicalExpression(Term\LogicalExpression $expr);
+    abstract function visitLogicalExpression(Part\LogicalExpression $expr);
 }

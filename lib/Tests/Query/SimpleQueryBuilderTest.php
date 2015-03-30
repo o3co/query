@@ -1,7 +1,7 @@
 <?php
 namespace O3Co\Query\Tests\Query;
 use O3Co\Query\Query\SimpleQueryBuilder;
-use O3Co\Query\Query\Term;
+use O3Co\Query\Query\Part;
 
 class SimpleQueryBuilderTest extends \PHPUnit_Framework_TestCase 
 {

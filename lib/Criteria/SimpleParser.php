@@ -6,7 +6,7 @@ use O3Co\Query\Persister;
 use O3Co\Query\Fql\Parser as FqlParser;
 use O3Co\Query\Query;
 use O3Co\Query\Query\ExpressionBuilder;
-use O3Co\Query\Query\Term;
+use O3Co\Query\Query\Part;
 
 use O3Co\Query\Exception\ParserException;
 
@@ -75,7 +75,7 @@ class SimpleParser implements CriteriaParser
      */
     public function parse(array $criteria, array $orderBy = array(), $limit = null, $offset = null)
     {
-        $statement = new Term\Statement();
+        $statement = new Part\Statement();
 
         if(!empty($criteria)) {
             $statement->setClause('condition', $this->parseCriteria($criteria));
@@ -110,7 +110,7 @@ class SimpleParser implements CriteriaParser
             $condition = array_shift($condExprs);
         } 
 
-        return new Term\ConditionalClause(array($condition));
+        return new Part\ConditionalClause(array($condition));
     }
 
     public function parseOrderBy($orders)
@@ -122,9 +122,9 @@ class SimpleParser implements CriteriaParser
             // field vs sorting type array.
             $exprs = array(); 
             foreach($orders as $field => $sort) {
-                $exprs[] = new Term\OrderExpression($field, $this->convertToSortingType($sort));
+                $exprs[] = new Part\OrderExpression($field, $this->convertToSortingType($sort));
             }
-            return new Term\OrderClause($exprs);
+            return new Part\OrderClause($exprs);
         }
 
         throw new \InvalidArgumentException('Order criteria is invalid format.');
@@ -132,12 +132,12 @@ class SimpleParser implements CriteriaParser
 
     public function parseLimit($limit)
     {
-        return new Term\LimitClause(new Term\ValueIdentifier($limit));
+        return new Part\LimitClause(new Part\ValueIdentifier($limit));
     }
 
     public function parseOffset($offset)
     {
-        return new Term\OffsetClause(new Term\ValueIdentifier($offset));
+        return new Part\OffsetClause(new Part\ValueIdentifier($offset));
     }
 
     /**
@@ -255,10 +255,10 @@ class SimpleParser implements CriteriaParser
         if(is_string($sort)) {
             switch(strtolower($sort)) {
             case 'asc':
-                return Term\OrderExpression::ORDER_ASCENDING;
+                return Part\OrderExpression::ORDER_ASCENDING;
             case 'desc':
             default:
-                return Term\OrderExpression::ORDER_DESCENDING;
+                return Part\OrderExpression::ORDER_DESCENDING;
             }
         }
     }

@@ -3,7 +3,7 @@ namespace O3Co\Query\Extension\Http;
 
 use O3Co\Query\Parser as ParserInterface;
 use O3Co\Query\Query;
-use O3Co\Query\Query\Term\Statement;
+use O3Co\Query\Query\Part\Statement;
 use O3Co\Query\Persister;
 
 /**

@@ -2,7 +2,7 @@
 namespace O3Co\Query\Query\Visitor;
 
 use O3Co\Query\Query\Visitor;
-use O3Co\Query\Query\Term;
+use O3Co\Query\Query\Part;
 
 /**
  * AbstractCustomVisitor 
@@ -16,7 +16,7 @@ use O3Co\Query\Query\Term;
  */
 abstract class AbstractCustomVisitor implements Visitor 
 {
-    public function visit(Term $term)
+    public function visit(Part $term)
     {
     }
 }

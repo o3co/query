@@ -2,7 +2,7 @@
 namespace O3Co\Query\Query;
 
 use O3Co\Query\Exception\UnsupportedException;
-use O3Co\Query\Query\Term;
+use O3Co\Query\Query\Part;
 
 /**
  * ExpressionBuilder 
@@ -31,13 +31,13 @@ class ExpressionBuilder
 
         // Convert all values to 
         $conds = array_map(function($v) {
-                if(!$v instanceof Term\ConditionalExpression) {
+                if(!$v instanceof Part\ConditionalExpression) {
                     throw new \InvalidArgumentException(sprintf('arguments of andx has to be an array of ConditionalExpresion, but "%s" is given', is_object($v) ? get_class($v) : gettype($v)));
                     //return $this->buildPart($v);
                 }
                 return $v;
             }, $value);
-        return new Term\LogicalExpression($conds, Term\LogicalExpression::TYPE_AND);
+        return new Part\LogicalExpression($conds, Part\LogicalExpression::TYPE_AND);
     }
 
     /**
@@ -57,14 +57,14 @@ class ExpressionBuilder
         $conds = array_map(function($v) {
                 if(is_string($v) && $this->getQueryParser()) {
                     return $this->getQueryParser()->parseExpression($v);
-                } else if(!$v instanceof Term\ConditionalExpression) {
+                } else if(!$v instanceof Part\ConditionalExpression) {
                     throw new \InvalidArgumentException('');
                 } 
                 return $v;
             }, $value);
 
-        //return new Term\OrX($conds);
-        return new Term\LogicalExpression($conds, Term\LogicalExpression::TYPE_OR);
+        //return new Part\OrX($conds);
+        return new Part\LogicalExpression($conds, Part\LogicalExpression::TYPE_OR);
     }
 
     /**
@@ -76,11 +76,11 @@ class ExpressionBuilder
      */
     public function not($value)
     {
-        if(!$value instanceof Term\ConditionalExpression) {
+        if(!$value instanceof Part\ConditionalExpression) {
             throw new \InvalidArgumentException('ExpressionBuilder::not only accept ConditionalExpression as argument 1');
         }
-        //return new Term\Not($value);
-        return new Term\LogicalExpression(array($value), Term\LogicalExpression::TYPE_NOT);
+        //return new Part\Not($value);
+        return new Part\LogicalExpression(array($value), Part\LogicalExpression::TYPE_NOT);
     }
 
     // Comparison Expression
@@ -94,10 +94,10 @@ class ExpressionBuilder
      */
     public function eq($field, $value)
     {
-        if(!$value instanceof Term) {
+        if(!$value instanceof Part) {
             $value = $this->buildPart($value);
         }
-        return new Term\ComparisonExpression($field, $value, Term\ComparisonExpression::EQ);
+        return new Part\ComparisonExpression($field, $value, Part\ComparisonExpression::EQ);
     }
 
     /**
@@ -110,10 +110,10 @@ class ExpressionBuilder
      */
     public function neq($field, $value)
     {
-        if(!$value instanceof Term) {
+        if(!$value instanceof Part) {
             $value = $this->buildPart($value);
         }
-        return new Term\ComparisonExpression($field, $value, Term\ComparisonExpression::NEQ);
+        return new Part\ComparisonExpression($field, $value, Part\ComparisonExpression::NEQ);
     }
 
     /**
@@ -126,10 +126,10 @@ class ExpressionBuilder
      */
     public function gt($field, $value)
     {
-        if(!$value instanceof Term\ConditionalExpression) {
+        if(!$value instanceof Part\ConditionalExpression) {
             $value = $this->buildPart($value);
         }
-        return new Term\ComparisonExpression($field, $value, Term\ComparisonExpression::GT);
+        return new Part\ComparisonExpression($field, $value, Part\ComparisonExpression::GT);
     }
 
     /**
@@ -142,10 +142,10 @@ class ExpressionBuilder
      */
     public function gte($field, $value)
     {
-        if(!$value instanceof Term\ConditionalExpression) {
+        if(!$value instanceof Part\ConditionalExpression) {
             $value = $this->buildPart($value);
         }
-        return new Term\ComparisonExpression($field, $value, Term\ComparisonExpression::GTE);
+        return new Part\ComparisonExpression($field, $value, Part\ComparisonExpression::GTE);
     }
 
     /**
@@ -158,10 +158,10 @@ class ExpressionBuilder
      */
     public function lt($field, $value)
     {
-        if(!$value instanceof Term) {
+        if(!$value instanceof Part) {
             $value = $this->buildPart($value);
         }
-        return new Term\ComparisonExpression($field, $value, Term\ComparisonExpression::LT);
+        return new Part\ComparisonExpression($field, $value, Part\ComparisonExpression::LT);
     }
 
     /**
@@ -174,10 +174,10 @@ class ExpressionBuilder
      */
     public function lte($field, $value)
     {
-        if(!$value instanceof Term\ConditionalExpression) {
+        if(!$value instanceof Part\ConditionalExpression) {
             $value = $this->buildPart($value);
         }
-        return new Term\ComparisonExpression($field, $value, Term\ComparisonExpression::LTE);
+        return new Part\ComparisonExpression($field, $value, Part\ComparisonExpression::LTE);
     }
 
     /**
@@ -189,7 +189,7 @@ class ExpressionBuilder
      */
     public function isNull($field)
     {
-        return new Term\ComparisonExpression($field, new Term\ValueIdentifier(null), Term\ComparisonExpression::EQ);
+        return new Part\ComparisonExpression($field, new Part\ValueIdentifier(null), Part\ComparisonExpression::EQ);
     }
 
     /**
@@ -201,7 +201,7 @@ class ExpressionBuilder
      */
     public function isNotNull($field)
     {
-        return new Term\ComparisonExpression($field, new Term\ValueIdentifier(null), Term\ComparisonExpression::NEQ);
+        return new Part\ComparisonExpression($field, new Part\ValueIdentifier(null), Part\ComparisonExpression::NEQ);
     }
 
     /**
@@ -217,12 +217,12 @@ class ExpressionBuilder
 
     public function asc($field)
     {
-        return new Term\OrderExpression($field, Term\OrderExpression::ORDER_ASCENDING);
+        return new Part\OrderExpression($field, Part\OrderExpression::ORDER_ASCENDING);
     }
 
     public function desc($field)
     {
-        return new Term\OrderExpression($field, Term\OrderExpression::ORDER_DESCENDING);
+        return new Part\OrderExpression($field, Part\OrderExpression::ORDER_DESCENDING);
     }
 
     /**
@@ -236,10 +236,10 @@ class ExpressionBuilder
     {
         if(is_string($value)) {
             // try to parse the value with CQL Parser
-            return new Term\ValueIdentifier($value);
+            return new Part\ValueIdentifier($value);
         } else if(is_scalar($value)) {
-            return new Term\ValueIdentifier($value);
-        } else if($value instanceof Term) {
+            return new Part\ValueIdentifier($value);
+        } else if($value instanceof Part) {
             return $value;
         }
 

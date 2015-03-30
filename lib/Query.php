@@ -1,7 +1,7 @@
 <?php
 namespace O3Co\Query;
 
-use O3Co\Query\Query\Term\Statement;
+use O3Co\Query\Query\Part\Statement;
 
 /**
  * Query 

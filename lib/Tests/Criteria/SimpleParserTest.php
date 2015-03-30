@@ -2,7 +2,7 @@
 namespace O3Co\Query\Tests\Criteria;
 
 use O3Co\Query\Criteria\SimpleParser;
-use O3Co\Query\Query\Term;
+use O3Co\Query\Query\Part;
 
 class SimpleCriteriaParserTest extends \PHPUnit_Framework_TestCase 
 {
@@ -22,16 +22,16 @@ class SimpleCriteriaParserTest extends \PHPUnit_Framework_TestCase
         $statement = $query->getStatement();
 
         $rootExpr = $statement->getClause('condition')->getFirstExpression();
-        $this->assertInstanceof('O3Co\Query\Query\Term\LogicalExpression', $rootExpr);
+        $this->assertInstanceof('O3Co\Query\Query\Part\LogicalExpression', $rootExpr);
 
         $condExprs = $rootExpr->getExpressions();
         $this->assertCount(2, $condExprs);
 
         foreach($condExprs as $expr) {
-            if($expr instanceof O3Co\Query\Query\Term\FieldDeclaredExpression) {
-                $this->assertInstanceof('O3Co\Query\Query\Term\ComparisonExpression', $expr);
+            if($expr instanceof O3Co\Query\Query\Part\FieldDeclaredExpression) {
+                $this->assertInstanceof('O3Co\Query\Query\Part\ComparisonExpression', $expr);
             } elseif('bar' === $expr) {
-                $this->assertInstanceof('O3Co\Query\Query\Term\LogicalExpression', $expr);
+                $this->assertInstanceof('O3Co\Query\Query\Part\LogicalExpression', $expr);
             }
         }
 

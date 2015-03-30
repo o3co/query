@@ -2,7 +2,7 @@
 namespace O3Co\Query\Tests;
 
 use O3Co\Query\Query\Visitor\OuterVisitor;
-use O3Co\Query\Query\Term;
+use O3Co\Query\Query\Part;
 
 /**
  * TestVisitor 
@@ -25,11 +25,11 @@ class TestVisitor implements OuterVisitor
     /**
      * visit 
      * 
-     * @param Term $term 
+     * @param Part $term 
      * @access public
      * @return void
      */
-    public function visit(Term $term)
+    public function visit(Part $term)
     {
         // do nothing
     }
