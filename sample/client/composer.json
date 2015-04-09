@@ -1,0 +1,29 @@
+{
+	"name": "o3co/query-sample-client",
+	"type": "project",
+	"description": "PHP Query Library - Sample Client Project",
+	"keywords": [
+		"php",
+		"query"
+	],
+	"license": "MIT",
+	"require" : {
+		"php" : ">=5.4.0",
+        "o3co/query-extension-cql": "~0.2.0",
+        "o3co/query-bridge-guzzlehttp": "~0.2.0"
+	},
+    "autoload-dev": {
+        "psr-4": {
+            "GuzzleHttp\\Tests\\Ring\\": "vendor/guzzlehttp/ringphp/tests",
+            "GuzzleHttp\\Tests\\": "vendor/guzzlehttp/guzzle/tests" 
+        }
+    },
+	"minimum-stability": "dev",
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.2-dev"
+		}
+	}
+}
+
+
