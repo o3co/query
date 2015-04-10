@@ -14,6 +14,7 @@ git remote add bridge.doctrine_orm https://github.com/o3co/query.bridge.doctrine
 git remote add bridge.guzzle_http https://github.com/o3co/query.bridge.guzzle_http.git
 
 git remote add adapter.doctrine https://github.com/o3co/query.adapter.doctrine.git
+git remote add sample.client https://github.com/o3co/query.sample.client.git
 
 
 git fetch --all
@@ -29,7 +30,7 @@ printf "============================================================"
 # 
 git checkout refs/remotes/core/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter lib ${TARGET_BRANCH} 
-git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
+git merge ${TARGET_BRANCH} -m "Merge branch '${TARGET_BRANCH}' into HEAD"
 if [ $? -ne 0 ]; then
     printf "\e[31mFailed to merge package 'core'.\e[m\n"
     printf "please execute following command to restore.\n"
@@ -38,7 +39,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 git push core HEAD:${TARGET_BRANCH}
-# reset the master
+# reset the ${TARGET_BRANCH}
 git checkout ${TARGET_BRANCH}
 git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 
@@ -46,7 +47,7 @@ git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 # Extension Http
 git checkout refs/remotes/extension.http/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter extensions/Http ${TARGET_BRANCH} 
-git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
+git merge ${TARGET_BRANCH} -m "Merge branch '${TARGET_BRANCH}' into HEAD"
 if [ $? -ne 0 ]; then
     printf "\e[31mFailed to merge package 'extension.http'.\e[m\n"
     printf "please execute following command to restore.\n"
@@ -55,14 +56,14 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 git push extension.http HEAD:${TARGET_BRANCH}
-# reset the master
+# reset the ${TARGET_BRANCH}
 git checkout ${TARGET_BRANCH}
 git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 
 # Extension CQL
 git checkout refs/remotes/extension.cql/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter extensions/CQL ${TARGET_BRANCH} 
-git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
+git merge ${TARGET_BRANCH} -m "Merge branch '${TARGET_BRANCH}' into HEAD"
 if [ $? -ne 0 ]; then
     printf "\e[31mFailed to merge package 'extensino.cql'.\e[m\n"
     printf "please execute following command to restore.\n"
@@ -71,14 +72,14 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 git push extension.cql HEAD:${TARGET_BRANCH}
-# reset the master
+# reset the ${TARGET_BRANCH}
 git checkout ${TARGET_BRANCH}
 git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 
 # Extension Extra
 git checkout refs/remotes/extension.extra/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter extensions/Extra ${TARGET_BRANCH} 
-git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
+git merge ${TARGET_BRANCH} -m "Merge branch '${TARGET_BRANCH}' into HEAD"
 if [ $? -ne 0 ]; then
     printf "\e[31mFailed to merge package 'extension.extra'.\e[m\n"
     printf "please execute following command to restore.\n"
@@ -87,14 +88,14 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 git push extension.extra HEAD:${TARGET_BRANCH}
-# reset the master
+# reset the ${TARGET_BRANCH}
 git checkout ${TARGET_BRANCH}
 git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 
 # Bridge DoctrineORM 
 git checkout refs/remotes/bridge.doctrine_orm/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter bridges/DoctrineOrm ${TARGET_BRANCH} 
-git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
+git merge ${TARGET_BRANCH} -m "Merge branch '${TARGET_BRANCH}' into HEAD"
 if [ $? -ne 0 ]; then
     printf "\e[31mFailed to merge package 'bridge.doctrine_orm'.\e[m\n"
     printf "please execute following command to restore.\n"
@@ -103,14 +104,14 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 git push bridge.doctrine_orm HEAD:${TARGET_BRANCH}
-# reset the master
+# reset the ${TARGET_BRANCH}
 git checkout ${TARGET_BRANCH}
 git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 
 # Bridge GuzzleHttp 
 git checkout refs/remotes/bridge.guzzle_http/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter bridges/GuzzleHttp ${TARGET_BRANCH} 
-git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
+git merge ${TARGET_BRANCH} -m "Merge branch '${TARGET_BRANCH}' into HEAD"
 if [ $? -ne 0 ]; then
     printf "\e[31mFailed to merge package 'bridge.guzzle_http'.\e[m\n"
     printf "please execute following command to restore.\n"
@@ -119,14 +120,14 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 git push bridge.guzzle_http HEAD:${TARGET_BRANCH}
-# reset the master
+# reset the ${TARGET_BRANCH}
 git checkout ${TARGET_BRANCH}
 git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 
 # Adapter Doctrine 
 git checkout refs/remotes/adapter.doctrine/${TARGET_BRANCH}
 git filter-branch -f --subdirectory-filter adapters/DoctrineExtension ${TARGET_BRANCH} 
-git merge ${TARGET_BRANCH} -m "Merge branch 'master' into HEAD"
+git merge ${TARGET_BRANCH} -m "Merge branch '${TARGET_BRANCH}' into HEAD"
 if [ $? -ne 0 ]; then
     printf "\e[31mFailed to merge package 'adapter.doctrine'.\e[m\n"
     printf "please execute following command to restore.\n"
@@ -135,9 +136,24 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 git push adapter.doctrine HEAD:${TARGET_BRANCH}
-# reset the master
+# reset the ${TARGET_BRANCH}
 git checkout ${TARGET_BRANCH}
 git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 
+# Sample Client 
+git checkout refs/remotes/sample.client/${TARGET_BRANCH}
+git filter-branch -f --subdirectory-filter sample/client ${TARGET_BRANCH} 
+git merge ${TARGET_BRANCH} -m "Merge branch '${TARGET_BRANCH}' into HEAD"
+if [ $? -ne 0 ]; then
+    printf "\e[31mFailed to merge package 'sample.client'.\e[m\n"
+    printf "please execute following command to restore.\n"
+    printf "\tgit checkout ${TARGET_BRANCH}\n"
+    printf "\tgit reset --hard refs/original/refs/heads/${TARGET_BRANCH}\n"
+    exit 1
+fi
+git push sample.client HEAD:${TARGET_BRANCH}
+# reset the ${TARGET_BRANCH}
+git checkout ${TARGET_BRANCH}
+git reset --hard refs/original/refs/heads/${TARGET_BRANCH}
 printf "============================================================"
 printf "COMPLETE"

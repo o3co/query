@@ -51,6 +51,12 @@ git tag -f bridge.doctrine_orm.${VERSION}
 git push bridge.doctrine_orm bridge.doctrine_orm.${VERSION}:${VERSION}
 
 # Tag Origin
+git checkout refs/remotes/sample.client/${TARGET_BRANCH} 
+git tag -f sample.client.${VERSION}
+git push sample.client sample.client.${VERSION}:${VERSION}
+
+
+# Tag Origin
 git checkout refs/remotes/adapter.doctrine/${TARGET_BRANCH} 
 git tag -f adapter.doctrine.${VERSION}
 git push adapter.doctrine adapter.doctrine.${VERSION}:${VERSION}
