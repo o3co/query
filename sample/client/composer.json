@@ -10,12 +10,12 @@
 	"require" : {
 		"php" : ">=5.4.0",
         "o3co/query-extension-cql": "~0.2.0",
-        "o3co/query-bridge-guzzlehttp": "~0.2.0"
+        "o3co/query-bridge-guzzlehttp": "~0.2.0",
+        "guzzlehttp/log-subscriber": "~1.0.0"
 	},
-    "autoload-dev": {
+    "autoload": {
         "psr-4": {
-            "GuzzleHttp\\Tests\\Ring\\": "vendor/guzzlehttp/ringphp/tests",
-            "GuzzleHttp\\Tests\\": "vendor/guzzlehttp/guzzle/tests" 
+            "O3Co\\Query\\SampleClient\\": "src"
         }
     },
 	"minimum-stability": "dev",

@@ -2,25 +2,19 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // Push response into ring Server 
-GuzzleHttp\Tests\Server::enqueue(array(file_get_contents(__DIR__ . '/../fixtures/response.txt')));
-
-$client = new GuzzleHttp\Client(['base_url' => GuzzleHttp\Tests\Server::$url]);
-
+$mock = new GuzzleHttp\Subscriber\Mock(array(
+        file_get_contents(__DIR__ . '/../fixtures/response.findOneBy.txt'),
+        file_get_contents(__DIR__ . '/../fixtures/response.findBy.txt'),
+    ));
+$client = new GuzzleHttp\Client();
+$client->getEmitter()->attach($mock);
+$client->getEmitter()->attach(new GuzzleHttp\Subscriber\Log\LogSubscriber(null, GuzzleHttp\Subscriber\Log\Formatter::DEBUG));
 
 $client = new O3Co\Query\Bridge\GuzzleHttp\ProxyClient($client);
 
-$qb = new O3Co\Query\Extension\CQL\QueryBuilder($client);
+$repository = new O3Co\Query\SampleClient\ArrayRepository($client);
+$data = $repository->findOneById(1);
+//var_dump($data);
 
-$qb
-    ->addWhere($qb->expr()->eq('name', 'foo'))
-    ->addWhere($qb->expr()->neq('age', 'hoge'))
-    ->addOrder($qb->expr()->asc('age'))
-;
-
-GuzzleHttp\Tests\Server::start();
-
-$response = $qb->getQuery()->execute();
-$data = $response->json();
-var_dump($data);
-
-GuzzleHttp\Tests\Server::stop();
+$data = $repository->getByNameAndCategory('name', 'category');
+//var_dump($data);
