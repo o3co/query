@@ -12,7 +12,7 @@ $client->getEmitter()->attach(new GuzzleHttp\Subscriber\Log\LogSubscriber(null, 
 
 $client = new O3Co\Query\Bridge\GuzzleHttp\ProxyClient($client);
 
-$repository = new O3Co\Query\SampleClient\ArrayRepository($client);
+$repository = new O3Co\Query\SampleClient\ModelRepository($client);
 $data = $repository->findOneById(1);
 //var_dump($data);
 
