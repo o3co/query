@@ -61,3 +61,5 @@ git checkout refs/remotes/adapter.doctrine/${TARGET_BRANCH}
 git tag -f adapter.doctrine.${VERSION}
 git push -f adapter.doctrine adapter.doctrine.${VERSION}:${VERSION}
 
+
+git checkout ${TARGET_BRANCH}
