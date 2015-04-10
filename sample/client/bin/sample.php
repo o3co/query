@@ -9,7 +9,7 @@ $client = new GuzzleHttp\Client(['base_url' => GuzzleHttp\Tests\Server::$url]);
 
 $client = new O3Co\Query\Bridge\GuzzleHttp\ProxyClient($client);
 
-$qb = new O3Co\Query\Query\SimpleQueryBuilder(new O3Co\Query\Extension\CQL\CQLPersister($client));
+$qb = new O3Co\Query\Extension\CQL\QueryBuilder($client);
 
 $qb
     ->addWhere($qb->expr()->eq('name', 'foo'))

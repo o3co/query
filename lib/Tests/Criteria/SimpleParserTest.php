@@ -21,7 +21,7 @@ class SimpleCriteriaParserTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceof('O3Co\Query\Query', $query);
         $statement = $query->getStatement();
 
-        $rootExpr = $statement->getClause('condition')->getFirstExpression();
+        $rootExpr = $statement->getClause('condition')->getExpression();
         $this->assertInstanceof('O3Co\Query\Query\Expr\LogicalExpression', $rootExpr);
 
         $condExprs = $rootExpr->getExpressions();

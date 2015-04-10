@@ -28,6 +28,11 @@ abstract class CompositeExpression extends AbstractPart implements Expression
         }
     }
 
+    public function getFirstExpression()
+    {
+        return reset($this->parts);
+    }
+
     /**
      * getFirstPart 
      * 
@@ -36,7 +41,7 @@ abstract class CompositeExpression extends AbstractPart implements Expression
      */
     public function getFirstPart()
     {
-        return reset($this->parts);
+        return $this->getFirstExpression();
     }
     
     /**

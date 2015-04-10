@@ -13,8 +13,25 @@ use O3Co\Query\Query\Expr\ConditionalExpression;
  * @author Yoshi<yoshi@1o1.co.jp> 
  * @license MIT
  */
-class ConditionalClause extends AbstractClause 
+class ConditionalClause extends AbstractPart implements Clause 
 {
+    private $expression;
+
+    /**
+     * __construct 
+     * 
+     * @param Expr\Part $part 
+     * @access public
+     * @return void
+     */
+    public function __construct(Expr\Part $part = null)
+    {
+        if($part && !($part instanceof ConditionalExpression)) {
+            throw new \RuntimeException(sprintf('ConditionalClause only accept ConditionalExpression, but "%s" is given', is_object($part) ? get_class($part) : gettype($part)));
+        }
+        $this->expression = $part;
+    }
+
     /**
      * add 
      * 
@@ -25,36 +42,46 @@ class ConditionalClause extends AbstractClause
     public function add(Expr\Part $part)
     {
         if(!$part instanceof ConditionalExpression) {
-            throw new \RuntimeException('ConditionalClause only accept ConditionalExpression for its part');
+            throw new \RuntimeException(sprintf('ConditionalClause only accept ConditionalExpression, but "%s" is given', is_object($part) ? get_class($part) : gettype($part)));
         }
 
-        return parent::add($part);
+        if(!$this->expression) {
+            $this->expression = $part;
+        } else if(($this->expression instanceof LogicalExpression) && $this->expression->isType(LogicalExpression::TYPE_AND)) {
+            // if root expression is AND logicalExpression, then append
+            $this->expression->add($part);
+        } else {
+            // create new AND logicalExpression and append both current expression and new expresion
+            $and = new Expr\LogicalExpression(array(
+                    $this->expression,
+                    $part
+                ), Expr\LogicalExpression::TYPE_AND);
+
+            $this->expression = $and;
+        }
+        return $this;
     }
 
     /**
-     * getFirstExpression 
+     * getExpresion
      * 
      * @access public
-     * @return void
+     * @return Expr\Expression 
      */
-    public function getFirstExpression()
+    public function getExpression()
     {
-        return $this->getParts()[0];
+        return $this->expression;
     }
 
     /**
-     * getExpresions 
+     * setExpression 
      * 
+     * @param Expr\ConditionalExpression $expr 
      * @access public
      * @return void
      */
-    public function getExpressions()
+    public function setExpression(Expr\ConditionalExpression $expr)
     {
-        return $this->getParts();
-    }
-
-    public function setExpressions(array $exprs)
-    {
-        $this->setParts($exprs);
+        $this->expression = $expr;
     }
 }

@@ -110,7 +110,7 @@ class SimpleParser implements CriteriaParser
             $condition = array_shift($condExprs);
         } 
 
-        return new Expr\ConditionalClause(array($condition));
+        return new Expr\ConditionalClause($condition);
     }
 
     public function parseOrderBy($orders)

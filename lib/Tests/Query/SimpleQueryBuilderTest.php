@@ -21,7 +21,11 @@ class SimpleQueryBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($builder->getStatement()->hasClause('condition'));
         $builder->add($builder->expr()->eq('field', 1), 'condition');
         $this->assertTrue($builder->getStatement()->hasClause('condition'));
-        $this->assertCount(1, $builder->getStatement()->getClause('condition')->getExpressions());
+        $this->assertInstanceof('O3Co\Query\Query\Expr\ComparisonExpression', $builder->getStatement()->getClause('condition')->getExpression());
+
+        $builder->add($builder->expr()->eq('foo', 'Foo'), 'condition');
+        $this->assertInstanceof('O3Co\Query\Query\Expr\LogicalExpression', $builder->getStatement()->getClause('condition')->getExpression());
+        $this->assertCount(2, $builder->getStatement()->getClause('condition')->getExpression()->getExpressions());
 
         $this->assertFalse($builder->getStatement()->hasClause('order'));
         $builder->add($builder->expr()->asc('field'), 'order');

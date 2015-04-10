@@ -20,12 +20,12 @@ interface MultiExpressionPart
     function getExpressions();
 
     /**
-     * addExpression 
+     * add 
      * 
      * @param Expression $expr 
      * @access public
      * @return void
      */
-    function addExpression(Expression $expr);
+    function add(Expression $expr);
 }
 

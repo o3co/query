@@ -27,7 +27,7 @@ class OrderClause extends AbstractPart implements Clause, MultiExpressionPart
     {
         $this->expressions = array();
         foreach($exprs as $expr) {
-            $this->addExpression($expr);
+            $this->add($expr);
         }
     }
 
@@ -43,13 +43,13 @@ class OrderClause extends AbstractPart implements Clause, MultiExpressionPart
     }
 
     /**
-     * addExpression 
+     * add
      * 
      * @param Expression $expr 
      * @access public
      * @return void
      */
-    public function addExpression(Expression $expr)
+    public function add(Expression $expr)
     {
         if(!$expr instanceof OrderExpression) {
             throw new \InvalidArgumentException('OrderClause only accept OrderExpression as its part.');

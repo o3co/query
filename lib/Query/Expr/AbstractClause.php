@@ -66,7 +66,7 @@ abstract class AbstractClause extends AbstractPart implements Clause, MultiExpre
         return $this->getParts();
     }
 
-    public function addExpression(Expression $expr)
+    public function add(Expression $expr)
     {
         $this->add($expr);
     }

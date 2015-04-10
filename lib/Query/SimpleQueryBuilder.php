@@ -105,11 +105,7 @@ class SimpleQueryBuilder implements QueryBuilder
         }
             
         $clause = $this->getStatement()->getClause($clause);
-        if(!$clause instanceof Expr\MultiExpressionPart) {
-            throw new \RuntimeException('QueryBuilder::add only support a Clause as a MultiExpressionPart.');
-        }
-
-        $clause->addExpression($part);
+        $clause->add($part);
         return $this;
     }
 
