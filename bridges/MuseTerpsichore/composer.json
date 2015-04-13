@@ -1,0 +1,29 @@
+{
+	"name": "o3co/query-bridge-museterpsichore",
+	"type": "library",
+	"description": "MuseTerpsichore Bridge for O3Co Query Component",
+	"keywords": [
+		"php",
+		"query"
+	],
+	"license": "MIT",
+	"require" : {
+		"php" : ">=5.3.2",
+		"o3co/query-core": "~0.2",
+		"o3co/query-extension-http": "~0.2",
+        "musephp/terpsichore-client": "~2.0.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"O3Co\\Query\\Bridge\\Terpsichore\\": ""
+		}
+	},
+	"minimum-stability": "dev",
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.2-dev"
+		}
+	}
+}
+
+
