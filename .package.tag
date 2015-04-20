@@ -18,7 +18,7 @@ echo ${TARGET_BRANCH}
 # Tag Origin
 git checkout ${TARGET_BRANCH} 
 git tag -f ${VERSION}
-git push -f origin ${TARGET_BRANCH}
+git push -f origin ${VERSION}
 
 # Tag Core 
 git checkout refs/remotes/core/${TARGET_BRANCH} 
