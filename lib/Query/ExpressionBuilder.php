@@ -180,6 +180,103 @@ class ExpressionBuilder
         return new Expr\ComparisonExpression($field, $value, Expr\ComparisonExpression::LTE);
     }
 
+    public function in($field, $values)
+    {
+        if(is_array($values)) {
+            return new Expr\CollectionComparisonExpression($field, $this->buildPart($values), Expr\CollectionComparisonExpression::IN);
+        } else {
+            return new Expr\CollectionComparisonExpression($field, $this->buildPart(array($values)), Expr\CollectionComparisonExpression::IN);
+        }
+    }
+
+    /**
+     * match 
+     *   Pattern search 
+     * @param mixed $field 
+     * @param mixed $value 
+     * @access public
+     * @return void
+     */
+    public function match($field, $value)
+    {
+        if(!$value instanceof Expr\ConditionalExpression) {
+            $value = $this->buildPart($value);
+        }
+        return new Expr\TextComparisonExpression($field, $value, Expr\TextComparisonExpression::MATCH);
+    }
+
+    /**
+     * match 
+     *   Pattern search 
+     * @param mixed $field 
+     * @param mixed $value 
+     * @access public
+     * @return void
+     */
+    public function notMatch($field, $value)
+    {
+        if(!$value instanceof Expr\ConditionalExpression) {
+            $value = $this->buildPart($value);
+        }
+        return new Expr\TextComparisonExpression($field, $value, Expr\TextComparisonExpression::NOT_MATCH);
+    }
+
+    /**
+     * prefix 
+     *   Match prefix 
+     * @param mixed $field 
+     * @param mixed $value 
+     * @access public
+     * @return void
+     */
+    public function prefix($field, $value)
+    {
+        if(!$value instanceof Expr\ConditionalExpression) {
+            $value = $this->buildPart(Expr\TextComparisonExpression::escapeString((string)$value) . Expr\TextComparisonExpression::WILDCARD_STRING);
+        }
+        return new Expr\TextComparisonExpression($field,  $value, Expr\TextComparisonExpression::MATCH);
+    }
+
+    /**
+     * postfix 
+     *   Match postfix 
+     * @param mixed $field 
+     * @param mixed $value 
+     * @access public
+     * @return void
+     */
+    public function postfix($field, $value)
+    {
+        if(!$value instanceof Expr\ConditionalExpression) {
+            $value = $this->buildPart(Expr\TextComparisonExpression::WILDCARD_STRING . Expr\TextComparisonExpression::escapeString((string)$value));
+        }
+        return new Expr\TextComparisonExpression($field, $value, Expr\TextComparisonExpression::MATCH);
+    }
+
+    /**
+     * contains 
+     *   Contains is as same as "*value*" match
+     * @param mixed $field 
+     * @param mixed $value 
+     * @access public
+     * @return void
+     */
+    public function contains($field, $value)
+    {
+        if(!$value instanceof Expr\ConditionalExpression) {
+            $value = $this->buildPart($value);
+        }
+        return new Expr\TextComparisonExpression($field, $value, Expr\TextComparisonExpression::CONTAIN);
+    }
+
+    public function notContains($field, $value)
+    {
+        if(!$value instanceof Expr\ConditionalExpression) {
+            $value = $this->buildPart($value);
+        }
+        return new Expr\TextComparisonExpression($field, $value, Expr\TextComparisonExpression::NOT_CONTAIN);
+    }
+
     /**
      * isNull 
      * 
@@ -215,11 +312,25 @@ class ExpressionBuilder
         return $this->isNotNull($field);
     }
 
+    /**
+     * asc 
+     * 
+     * @param mixed $field 
+     * @access public
+     * @return void
+     */
     public function asc($field)
     {
         return new Expr\OrderExpression($field, Expr\OrderExpression::ORDER_ASCENDING);
     }
 
+    /**
+     * desc 
+     * 
+     * @param mixed $field 
+     * @access public
+     * @return void
+     */
     public function desc($field)
     {
         return new Expr\OrderExpression($field, Expr\OrderExpression::ORDER_DESCENDING);
@@ -235,11 +346,10 @@ class ExpressionBuilder
     public function buildPart($value)
     {
         if(is_string($value)) {
-            // try to parse the value with CQL Parser
             return new Expr\ValueIdentifier($value);
-        } else if(is_scalar($value)) {
+        } else if(is_scalar($value) || is_array($value)) {
             return new Expr\ValueIdentifier($value);
-        } else if($value instanceof Part) {
+        }if($value instanceof Part) {
             return $value;
         }
 

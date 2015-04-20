@@ -180,6 +180,61 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $expr->getValue()->getValue());
     }
 
+    public function testIn()
+    {
+        $builder = $this->getExpressionBuilder();
+
+        $expr = $builder->in('foo', array('foo', 'bar'));
+        $this->assertInstanceof('O3Co\Query\Query\Expr\CollectionComparisonExpression', $expr);
+        $this->assertEquals(Expr\CollectionComparisonExpression::IN, $expr->getOperator());
+        $this->assertEquals('foo', $expr->getField()->getName());
+        $this->assertEquals(array('foo', 'bar'), $expr->getValue()->getValue());
+
+        $expr = $builder->in('foo', 'foo');
+        $this->assertInstanceof('O3Co\Query\Query\Expr\CollectionComparisonExpression', $expr);
+        $this->assertEquals(Expr\CollectionComparisonExpression::IN, $expr->getOperator());
+        $this->assertEquals('foo', $expr->getField()->getName());
+        $this->assertEquals(array('foo'), $expr->getValue()->getValue());
+    }
+
+    public function testMatch()
+    {
+        $builder = $this->getExpressionBuilder();
+
+        $expr = $builder->match('foo', 'abc');
+
+        $this->assertInstanceof('O3Co\Query\Query\Expr\TextComparisonExpression', $expr);
+        $this->assertEquals(Expr\TextComparisonExpression::MATCH, $expr->getOperator());
+        $this->assertEquals('foo', $expr->getField()->getName());
+        $this->assertEquals('abc', $expr->getValue()->getValue());
+
+        $expr = $builder->prefix('foo', 'abc');
+
+        $this->assertInstanceof('O3Co\Query\Query\Expr\TextComparisonExpression', $expr);
+        $this->assertEquals(Expr\TextComparisonExpression::MATCH, $expr->getOperator());
+        $this->assertEquals('foo', $expr->getField()->getName());
+        $this->assertEquals('abc*', $expr->getValue()->getValue());
+
+        $expr = $builder->postfix('foo', 'abc');
+
+        $this->assertInstanceof('O3Co\Query\Query\Expr\TextComparisonExpression', $expr);
+        $this->assertEquals(Expr\TextComparisonExpression::MATCH, $expr->getOperator());
+        $this->assertEquals('foo', $expr->getField()->getName());
+        $this->assertEquals('*abc', $expr->getValue()->getValue());
+    }
+
+    public function testContains()
+    {
+        $builder = $this->getExpressionBuilder();
+
+        $expr = $builder->contains('foo', 'abc');
+
+        $this->assertInstanceof('O3Co\Query\Query\Expr\TextComparisonExpression', $expr);
+        $this->assertEquals(Expr\TextComparisonExpression::CONTAIN, $expr->getOperator());
+        $this->assertEquals('foo', $expr->getField()->getName());
+        $this->assertEquals('abc', $expr->getValue()->getValue());
+    }
+
     /**
      * getExpressionBuilder 
      * 

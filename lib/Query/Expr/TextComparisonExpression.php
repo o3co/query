@@ -20,10 +20,14 @@ class TextComparisonExpression extends AbstractComparisonExpression
     const BIT_CONTAIN     = 0b0000000000100000;
     const BIT_IS_MUST     = 0b0010000000000000;
 
-    const MATCH        = 0b0000000000010000;
-    const CONTAIN      = 0b0000000000100000;
-    const NOT_MATCH    = 0b1000000000010000;
-    const NOT_CONTAIN  = 0b1000000000100000;
+    const MATCH           = 0b0000000000010000;
+    const CONTAIN         = 0b0000000000100000;
+    const NOT_MATCH       = 0b1000000000010000;
+    const NOT_CONTAIN     = 0b1000000000100000;
+
+    const WILDCARD_CHAR   = '.';
+    const WILDCARD_STRING = '*';
+    const WILDCARD_ESCAPE = '\\';
 
     public function cleanOperator()
     {
@@ -36,6 +40,18 @@ class TextComparisonExpression extends AbstractComparisonExpression
         }
 
         return $this->operator;
+    }
+
+    /**
+     * escapeString 
+     * 
+     * @param mixed $value 
+     * @access public
+     * @return void
+     */
+    static public function escapeString($value)
+    {
+        return addcslashes($value, '.*');
     }
 }
 
